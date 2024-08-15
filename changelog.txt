@@ -1,0 +1,107 @@
+v0.21 - 2024-08-14
+_________________________________________
+
+[Changes]
+- No more seperate pages for adding categories and platforms.
+  These have now moved to the information container.
+
+[Fixes]
+- Fixed navigation row on categories/platforms pages being pushed down slightly.
+
+[Administrative]
+- Added PHP Info under Administrative section
+- Prepared links for:
+  * GameDB Updates
+  * Import/Export/Backup Database
+  * Nuke Database
+
+Note: These pages are not done yet, but have been added to
+      administrative page.
+  
+
+v0.20 - 2024-08-05
+_________________________________________
+
+[Changes]
+- Admin dashboard has been redesigned
+- Version number has been made a variable instead, located in version.php
+- Configuration is now stored in database. /include/config.php and its
+  usage will soon be phased out as i work on the code. 
+  
+[Administrative]
+- Added info box to the right of the main list for categories and platforms.
+
+
+v0.19 - 2024-07-26
+_________________________________________
+
+[Additions]
+- Categories/Platform pages added to admin dashboard
+
+[Administrative]
+- Added info messages when modifying/adding/deleting games/genres/platforms
+
+Note: This page will also display platform icon (if available)
+that matches each platforms short prefix as mentioned in earlier
+changelog update.
+
+
+v0.18 - 2024-07-25
+_________________________________________
+
+[Changes]
+- Platform/systems are now stored in database in the 'platforms' table
+- Genres are now stored in database in the 'categories' table
+
+Note: Platform icons should be named the same as the 'short_prefix' in the database table.
+
+Example:
+Name			: 	Atari 2600 
+Short Prefix	:	Atari2600 
+Platform Icon	:	<skin-name>/img/platform_icons/Atari2600.png
+
+
+v0.17 - 2024-07-24
+_________________________________________
+
+[Additions]
+- Added platform icon support
+
+[Fixes]
+- Fixed VOD column showing full link instead of "WATCH"
+- Fixed table and its content not being aligned when using filters
+- Fixed table not showing rating icons, also added platform icon on search query
+
+[Administrative]
+- Added platform support
+
+
+v0.16a - 2024-07-19
+_________________________________________
+
+[Additions]
+- Replaced text with rating stars
+- Added Rating filter
+
+[Fixes]
+- Fixed blurry text caused by backdrop filters
+
+[Administrative]
+- Added warning bar in admin page about the install folder
+
+
+v0.15 - 2024-07-04
+_________________________________________
+
+[Additions]
+- Resized container 
+	
+[Fixes]
+- Fixed blurry HTML elements (input, select)
+
+
+version v0.14 - 2024-07-03
+_________________________________________
+
+[Additions]
+- Added IGDB integration. See admin page config info.
