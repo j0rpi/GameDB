@@ -310,8 +310,8 @@ $result = $db->query('SELECT * FROM categories');
 		.thindivider {
 			border-bottom: 1px solid #666666;
 			width: 100%;
-			margin-top: -5px;
-			margin-bottom: 8px;
+			margin-top: 5px;
+			margin-bottom: 12px;
 		}
     </style>
 </head>
@@ -352,12 +352,12 @@ else
 	// --------------------------------------------------------
 	?>
 	<div class="info-container">
-		<p>How to</p>
+		<span>How to</span>
 		<div class="thindivider"></div>
 		<p>✏️  Update Category</p>
 		<p>❌  Delete Category</p>
 		<p style="margin-top: 25px;"></p>
-		<p>Add New Category</p>
+		<span>Add New Category</span>
 		<div class="thindivider"></div>
 		<form method="POST">
             <label for="cat_name_add">Category Name</label>

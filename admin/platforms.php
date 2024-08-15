@@ -314,8 +314,8 @@ $result = $db->query('SELECT * FROM platforms');
 		.thindivider {
 			border-bottom: 1px solid #666666;
 			width: 100%;
-			margin-top: -5px;
-			margin-bottom: 8px;
+			margin-top: 5px;
+			margin-bottom: 12px;
 		}
     </style>
 </head>
@@ -355,12 +355,12 @@ else
 	// --------------------------------------------------------
 	?>
 	<div class="info-container">
-		<p>How to</p>
+		<span>How to</span>
 		<div class="thindivider"></div>
 		<p>✏️ Update Platform</p>
 		<p>❌ Delete Platform</p>
 		<p style="margin-top: 25px;"></p>
-		<p>Add New Platform</p>
+		<span>Add New Platform</span>
 		<div class="thindivider"></div>
 		<form method="POST">
             <label for="name_add">Platform Name</label>
