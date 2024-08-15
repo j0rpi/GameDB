@@ -18,7 +18,7 @@ GameDB uses PHP and SQLite3.
 - Rating system
 - Platform system
 - Administration system
-- Speedrun.com / Splits.IO integration (Not yet implented)
+- Speedrun.com / Splits.IO integration (Not yet implemented)
 
 ... and more to come i guess.
 
