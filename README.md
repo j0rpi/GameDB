@@ -3,7 +3,7 @@
 # What is GameDB
 GameDB is a personal project of mine which features one single database
 for keeping tracks of games I have played. It features a simple yet
-sleek design that is appealing to the eye. 
+sleek design that is appealing to the eye. I was inspired by [TheKotti's](https://www.twitch.tv/thekotti "TheKotti's Twitch Channel") page where he manages the games he has played. 
 
 GameDB also has a rating system, ability to filter by platform/system, and also
 a cover art download system, thanks to IGDB.com API. 
