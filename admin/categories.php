@@ -291,6 +291,7 @@ $result = $db->query('SELECT * FROM categories');
 			background-color: rgb(0,0,0); 
 			background-color: rgba(0,0,0, 0.1); 
 			color:white;
+			width: 100%;
         }
 		.info-container button {
             padding: 10px;
