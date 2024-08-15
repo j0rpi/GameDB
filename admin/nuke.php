@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .form-container button {
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #0080ff;
             color: white;
             border: none;
             border-radius: 4px;
@@ -257,6 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin-top: -5px;
 			margin-bottom: 8px;
 		}
+
     </style>
 </head>
 <body>
@@ -293,7 +294,7 @@ else
 		<strong style="color: rgba(255, 75, 75, 1)">Note:</strong> This action cannot be reversed. Are you sure?</p>
 		<form method="POST">
 			<center>
-				<button type="submit" name="wipe_db" style="width: 50%;">Confirm Nuke</button>
+				<button type="submit" name="wipe_db" style="width: 50%;">☢️ Confirm Nuke</button>
 			</center>
 		</form>
 	</div>

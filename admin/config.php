@@ -27,6 +27,7 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in'])
 //
 // --------------------------------------------------------
 include('../include/config.php');
+include('../version.php');
 // For when we edit/delete posts
 $status = "";
 // --------------------------------------------------------
@@ -339,6 +340,18 @@ else
     <button type='submit' class="submit" style="">✔️ Save Configuration</button>
   </form>
  </div>
+<?php
+// --------------------------------------------------------
+//
+// Footer
+//
+// --------------------------------------------------------
+?>
+<div class="footerdivider">
+	<div class="footer-content">
+		<center><a href='https://github.com/j0rpi/GameDB' style='text-decoration: none; border-bottom: 1px dotted white;'>GameDB</a> made with ❤️ by j0rpi<br><span style="font-weight: 200; font-size: 12px;"><?php echo $version; ?></span></center> 
+	</div>
+</div>
 </div>
 <?php
 // --------------------------------------------------------
