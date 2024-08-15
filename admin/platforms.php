@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $db->prepare('UPDATE platforms SET name = :name, short_prefix = :short_prefix WHERE id = :id');
         $stmt->bindValue(':id', $_POST['update_id'], SQLITE3_INTEGER);
         $stmt->bindValue(':name', $_POST['name'], SQLITE3_TEXT);
-		$stmt->bindValue(':short_prefix', $_POST['short_prefix'], SQLITE3_INTEGER);
+		$stmt->bindValue(':short_prefix', $_POST['short_prefix'], SQLITE3_TEXT);
 		$status = $_POST['name'] . " (" . $_POST['short_prefix'] . ") was updated.";
 		echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
         $stmt->execute();
@@ -224,7 +224,7 @@ $result = $db->query('SELECT * FROM platforms');
         }
         .form-container button {
             padding: 10px;
-            background-color: #0080ff;;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
@@ -331,12 +331,12 @@ $folder = "../install";
 $keygen = false;
 if(is_dir($folder)) {
 	echo "<div class='errorbar'><span style='margin-bottom: 2px'>⚠</span>️ Its strongly adviced to generate an <a href='../install/generate_token.php' style='text-decoration: none; border-bottom: 1px solid white;'>Access Token key for IGDB</a> now before removing the <strong>INSTALL</strong> folder for cover art search support!</div><br><br>";
-	echo "<div class='bg-text' style='margin-top: 50px;'>";
+	echo "<br><br><div class='bg-text' style='margin-top: 50px;'>";
 	$keygen = true;
 }
 else
 {
-	echo "<div class='bg-text'>";
+	echo "<br><br><div class='bg-text' style='margin-top: 50px;'>";
 }
 ?>
 <?php

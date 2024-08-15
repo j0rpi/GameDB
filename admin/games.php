@@ -291,7 +291,7 @@ if(is_dir($folder)) {
 }
 else
 {
-	echo "<div class='bg-text'>";
+	echo "<br><br><div class='bg-text' style='margin-top: 50px;'>";
 }
 ?><br>
 <?php
