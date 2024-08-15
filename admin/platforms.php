@@ -387,9 +387,9 @@ else
             <tr style="font-size: 14px;">
 				<th style="text-align: center; width: 10px">ID</th>
 				<th style="text-align: center; width: 32px">Icon</th>
-				<th style="text-align: center; width: 50px">Name</th>
-				<th style="text-align: center; width: 10px">Short Prefix</th>
-				<th style="text-align: center; width: 75px">Actions</th>
+				<th style="text-align: center; width: 125px">Name</th>
+				<th style="text-align: center; width: 125px">Short Prefix</th>
+				<th style="text-align: center; width: 125px">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -419,8 +419,8 @@ else
 							echo "<td style='text-align: center;' name='platform_icon'><img style='width: 32px;' src='../styles/default/img/platform_icons/unknown.png' /></td>";
 						}
 						?>
-						<td><input type="text" name="name" value="<?= $platform['name'] ?>"></td>
-						<td style="text-align: center;"><input type="text" name="short_prefix" value="<?= $platform['short_prefix'] ?>" style="width: 75px;"></td>
+						<td><center><input type="text" name="name" value="<?= $platform['name'] ?>" style="width: 200px;"></center></td>
+						<td style="text-align: center;"><center><input type="text" name="short_prefix" value="<?= $platform['short_prefix'] ?>" style="width: 125px;"></center></td>
 					<?php
 					// --------------------------------------------------------
 					//
@@ -429,9 +429,11 @@ else
 					// --------------------------------------------------------
 					?>
                         <td>
+						<center>
                             <button type="submit" style="vertical-align: middle; margin-bottom: 8px;" name="update_id" title="Update this game" value="<?= $platform['id'] ?>">✏️</button>
                             <button type="submit" style="background-color: rgba(255,0,0,0.6); vertical-align: middle; margin-bottom: 8px;" title="Delete" name="delete_id" value="<?= $platform['id'] ?>">❌</button>
                         </td>
+						</center>
                     </form>
                 </tr>
                 <?php endwhile; ?>

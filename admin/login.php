@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-family: Bahnschrift;
 			color: white;
 			background-attachment: fixed;
-			background-image: url("bg.jpg");
+			background-image: url("../styles/default/img/bg.jpg");
 			background-size: cover;
 		}
 

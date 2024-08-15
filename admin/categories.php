@@ -367,8 +367,7 @@ else
             <button type="submit" name="add_cat">✔️ Add Category</button>
         </form>
 		</p>
-		<p>Categories marked as 'odd' will be listed under "Others" in the
-		filter on main page.</p>
+		<p>Categories marked as <strong>ODD</strong> will be listed under <strong>Others</strong> in the search filters.</p>
 	</div>
 	
 	<?php
@@ -391,9 +390,9 @@ else
             <thead>
             <tr style="font-size: 14px;">
 				<th style="text-align: center; width: 10px">ID</th>
-				<th style="text-align: center; width: 50px">Genre</th>
-				<th style="text-align: center; width: 10px">Odd?</th>
-				<th style="text-align: center; width: 75px">Actions</th>
+				<th style="text-align: center; width: 50px">Name</th>
+				<th style="text-align: center; width: 5px">Is Odd</th>
+				<th style="text-align: center; width: 100px">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -408,8 +407,8 @@ else
                 <tr>
                     <form method="POST">
 						<td style="text-align: center;" name="id"><?= $cat['id'] ?></td>
-						<td><input type="text" name="cat_name" value="<?= $cat['cat_name'] ?>"></td>
-						<td style="text-align: center;"><input type="text" name="odd_genre" value="<?= $cat['odd_genre'] ?>"  style="width: 75px;"></td>
+						<td><center><input type="text" name="cat_name" value="<?= $cat['cat_name'] ?>" style="width: 250px;"></center></td>
+						<td style="text-align: center;"><input type="text" name="odd_genre" value="<?= $cat['odd_genre'] ?>"  style="width: 30px;"></td>
 					<?php
 					// --------------------------------------------------------
 					//
@@ -418,9 +417,11 @@ else
 					// --------------------------------------------------------
 					?>
                         <td>
+						<center>
                             <button type="submit" style="vertical-align: middle; margin-bottom: 8px;" name="update_id" title="Update this game" value="<?= $cat['id'] ?>">✏️</button>
                             <button type="submit" style="background-color: rgba(255,0,0,0.6); vertical-align: middle; margin-bottom: 8px;" title="Delete" name="delete_id" value="<?= $cat['id'] ?>">❌</button>
-                        </td>
+                        </center>
+						</td>
                     </form>
                 </tr>
                 <?php endwhile; ?>

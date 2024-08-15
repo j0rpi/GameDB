@@ -290,7 +290,7 @@ else
     <h1>Admin Dashboard<span style="float:right; font-size: 16px; font-weight: normal;">Logged in As <strong><?php echo $_SESSION['admin_username']; ?></strong></span><br><span style="float:left; font-size: 12px; font-weight: normal;"></span><span style="float:right; font-size: 12px; font-weight: normal;"><a href="password.php" style="">Change Password</a> | <a href="logout.php" style="">Logout</a></h1><br>
     <div class="form-container" style="text-align: center;">
 	<span class="button-row-text"><a href="index.php">Admin Dashboard</a> > Nuke Database</span><br>
-		<p>This will delete all games, categories and platforms from the database. <br>User accounts and GameDB configuration will not be wiped.<br><br>
+		<p>This will delete all <strong style="color: #0080ff;">games</strong>, <strong style="color: #0080ff;">categories</strong> and <strong style="color: #0080ff;">platforms</strong> from the database. <br>User accounts and GameDB configuration will not be wiped.<br><br>
 		<strong style="color: rgba(255, 75, 75, 1)">Note:</strong> This action cannot be reversed. Are you sure?</p>
 		<form method="POST">
 			<center>
