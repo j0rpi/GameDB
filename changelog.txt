@@ -1,3 +1,19 @@
+v0.22 - 2024-08-15
+_________________________________________
+
+[Additions]
+- Added footer for pages where it was missing
+- Made GameDB text in footer re-direct to Github page.
+
+[Fixes]
+- Fixed width on text input fields in info-container in categories.php/platforms.php
+- Fixed header texts in info-container being slightly lower than form-container navigation text.
+- Fixed version.php not being called from multiple pages, causing variable errors.
+
+[Administrative]
+- Added nuke.php and implemented the possibility of wiping the database
+
+
 v0.21 - 2024-08-14
 _________________________________________
 
