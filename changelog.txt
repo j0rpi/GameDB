@@ -9,6 +9,7 @@ _________________________________________
 - Fixed width on text input fields in info-container in categories.php/platforms.php
 - Fixed header texts in info-container being slightly lower than form-container navigation text.
 - Fixed version.php not being called from multiple pages, causing variable errors.
+- Fixed buttons in info-container being green instead of blue
 
 [Administrative]
 - Added nuke.php and implemented the possibility of wiping the database
