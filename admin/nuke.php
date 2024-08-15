@@ -27,6 +27,27 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
 //
 // --------------------------------------------------------
 include('../include/config.php');
+
+// --------------------------------------------------------
+//
+// Setup POST Variables
+//
+// --------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['wipe_db'])) {
+		$stmt = $db->prepare('DELETE FROM categories');
+		$stmt2 = $db->prepare('DELETE FROM platforms');
+		$stmt3 = $db->prepare('DELETE FROM games');
+        $stmt->execute();
+		$stmt2->execute();
+		$stmt3->execute();
+		$status = "The database was completely wiped.";
+		echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
+	} else {
+		$status = "There was an error trying to delete/update selected post.";
+		echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -268,7 +289,7 @@ else
     <h1>Admin Dashboard<span style="float:right; font-size: 16px; font-weight: normal;">Logged in As <strong><?php echo $_SESSION['admin_username']; ?></strong></span><br><span style="float:left; font-size: 12px; font-weight: normal;"></span><span style="float:right; font-size: 12px; font-weight: normal;"><a href="password.php" style="">Change Password</a> | <a href="logout.php" style="">Logout</a></h1><br>
     <div class="form-container" style="text-align: center;">
 	<span class="button-row-text"><a href="index.php">Admin Dashboard</a> > Nuke Database</span><br>
-		<p>This will delete all games, categories and platforms from the database.<br>
+		<p>This will delete all games, categories and platforms from the database. <br>User accounts and GameDB configuration will not be wiped.<br><br>
 		<strong style="color: rgba(255, 75, 75, 1)">Note:</strong> This action cannot be reversed. Are you sure?</p>
 		<form method="POST">
 			<center>
