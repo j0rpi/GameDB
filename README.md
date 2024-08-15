@@ -8,6 +8,8 @@ sleek design that is appealing to the eye.
 GameDB also has a rating system, ability to filter by platform/system, and also
 a cover art download system, thanks to IGDB.com API. 
 
+GameDB uses PHP and SQLite3. 
+
 # Features
 - Search engine
 - Ability to add/remove/modify games
