@@ -22,17 +22,19 @@ GameDB uses PHP and SQLite3.
 
 ... and more to come i guess.
 
-# Install
-Run /install/ and follow the steps. Note that the install script is not finished
-at all. You can also just copy the whole repository and run as is. 
+# Clean Install
+Since i edit all code in the repository directly, **games.db** will also ship with GameDB. 
+
+1. Delete **games.db**
+2. Run **/install/**
+3. Follow the instructions on [how to get API access from IGDB for cover search functionality. You will need **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
+4. Edit **/install/generate_token.php** to match your **ClientID** and **ClientSecret**
+5. Edit **/admin/coversearch.php** to match your **ClientID**, **ClientSecret** and **AccessToken** *(This will be moved to global configuration)*
+6. Rename or delete **/install/** folder
 
 Default admin username and password is **admin / admin**
 
-As GameDB uses SQLite3, you must enable this module in your **php.ini**
-
-# Note
-Don't run on a public server. No security meassures are implemented :)
-
+# Screenshots 
 ![Alt text](/screens/index.jpg?raw=true "Index")
 ![Alt text](/screens/modal.jpg?raw=true "Modal")
 ![Alt text](/screens/admin.jpg?raw=true "Admin Index")
