@@ -3,8 +3,8 @@
 //
 // j0rpi_GameDB
 //
-// File: admin/index.php
-// Purpose: Main administrator page
+// File: admin/password.php
+// Purpose: Provides the ability to change user password.
 //
 // --------------------------------------------------------
 
