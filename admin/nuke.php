@@ -3,8 +3,8 @@
 //
 // j0rpi_GameDB
 //
-// File: admin/index.php
-// Purpose: Main administrator page
+// File: admin/nuke.php
+// Purpose: Provides the ability to wipe the database
 //
 // --------------------------------------------------------
 

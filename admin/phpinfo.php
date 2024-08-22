@@ -3,8 +3,8 @@
 //
 // j0rpi_GameDB
 //
-// File: admin/platforms.php
-// Purpose: Manage platforms
+// File: admin/phpinfo.php
+// Purpose: Displays phpInfo() - I thought it could be useful i guess..
 //
 // --------------------------------------------------------
 

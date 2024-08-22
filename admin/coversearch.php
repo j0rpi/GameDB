@@ -1,6 +1,12 @@
 <?php
-// search_covers.php
-
+// --------------------------------------------------------
+//
+// j0rpi_GameDB
+//
+// File: coversearch.php
+// Purpose: Provides IGDB cover search functionality.
+//
+// --------------------------------------------------------
 header('Content-Type: application/json');
 
 // Replace with your IGDB credentials
