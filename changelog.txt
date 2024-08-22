@@ -1,4 +1,14 @@
-v0.22 - 2024-08-15
+v0.24 - 2024-08-23
+_________________________________________
+
+[Additions]
+- Made SQL more secure against various attacks on all pages using SQL.
+
+[Administrative]
+- User can now change password.
+
+
+v0.23 - 2024-08-15
 _________________________________________
 
 [Changes]

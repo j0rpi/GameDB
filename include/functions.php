@@ -7,12 +7,16 @@
 // Purpose: Make stuff easier right.. 
 //
 // --------------------------------------------------------
+
+
+// --------------------------------------------------------
 //
 // Get game title by game ID
 // 
 // Usage: displayGameID(id) 
 //
 // --------------------------------------------------------
+
 function displayGameByID($gameID)
 {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
@@ -115,6 +119,80 @@ function wipeDB()
             $status = "There was an error trying to delete/update selected post.";
             echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
         }
+    }
+}
+
+// --------------------------------------------------------
+//
+// Change password
+// 
+// Usage: changePassword(Old Password, New Password, Confirm New Password)
+//
+// --------------------------------------------------------
+
+function changePassword($oldPassword, $newPassword, $confirmPassword) {
+    // Check if the user is logged in
+    if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+        return 'You must be logged in to change your password.';
+    }
+
+    // Get the current username from the session
+    $username = $_SESSION['admin_username'];
+
+    // Validate the new password and confirmation
+    if (empty($newPassword) || empty($confirmPassword)) {
+        echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ Fields cannot be empty.</div>";
+    }
+
+    if ($newPassword !== $confirmPassword) {
+        return "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ New and confirmed password does not match.</div>";
+    }
+
+    if (strlen($newPassword) < 8) {
+        return "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ Password needs to be atleast 8 characters long.</div>";
+    }
+
+    // Use try-catch to handle potential database connection errors
+    try {
+        // Establish a secure connection to the database
+        $db = new SQLite3('../games.db');
+
+        // Use prepared statements to select the current password
+        $stmt = $db->prepare('SELECT password FROM admins WHERE username = :username');
+        $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+        $result = $stmt->execute();
+
+        // Check if the result is valid and fetch the current password
+        if ($result && ($admin = $result->fetchArray(SQLITE3_ASSOC))) {
+            // Verify the old password
+            if (password_verify($oldPassword, $admin['password'])) {
+                // Hash the new password securely
+                $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                // Prepare the update statement
+                $stmt = $db->prepare('UPDATE admins SET password = :password WHERE username = :username');
+                $stmt->bindValue(':password', $newPasswordHash, SQLITE3_TEXT);
+                $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+                $stmt->execute();
+
+                // Close the statement
+                $stmt->close();
+                // Finalize the result set to free resources
+                $result->finalize();
+
+                return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ Password was successfully changed.</div>";
+            } else {
+                // Finalize the result set if the password is incorrect
+                $result->finalize();
+                return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Old password is incorrect.</div>";
+            }
+        } else {
+            // Return an error if the user was not found or if there was a database error
+            return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Could not fetch user. Please try to login again.</div>";
+        }
+    } catch (Exception $e) {
+        // Handle any errors (e.g., database connection issues)
+        return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Unknown error occured.</div>";
     }
 }
 ?>

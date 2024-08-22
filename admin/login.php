@@ -11,24 +11,52 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    // Sanitize input to avoid XSS attacks
+    $username = htmlspecialchars(trim($_POST['username']), ENT_QUOTES, 'UTF-8');
+    $password = trim($_POST['password']);
 
-    $db = new SQLite3('../games.db');
-
-    $stmt = $db->prepare('SELECT * FROM admins WHERE username = :username');
-    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
-    $result = $stmt->execute();
-
-    $admin = $result->fetchArray(SQLITE3_ASSOC);
-
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_username'] = $username; // Optionally store username
-        header('Location: ../index.php');
-        exit;
+    // Validate that both fields are not empty
+    if (empty($username) || empty($password)) {
+        $error = 'Please fill in both fields';
     } else {
-        $error = 'Invalid username or password';
+        // Use try-catch to handle potential database connection errors
+        try {
+            // Establish a secure connection to the database
+            $db = new SQLite3('../games.db', SQLITE3_OPEN_READONLY);
+
+            // Use prepared statements to protect against SQL injection
+            $stmt = $db->prepare('SELECT * FROM admins WHERE username = :username');
+            $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+            $result = $stmt->execute();
+
+            // Fetch the result and check if the user exists
+            if ($result && ($admin = $result->fetchArray(SQLITE3_ASSOC))) {
+                // Close the statement and finalize the result after fetching
+                //$stmt->close();
+                //$result->finalize();
+
+                // Verify the password
+                if (password_verify($password, $admin['password'])) {
+                    // Regenerate session ID to prevent session fixation attacks
+                    session_regenerate_id(true);
+
+                    // Securely store session variables
+                    $_SESSION['admin_logged_in'] = true;
+                    $_SESSION['admin_username'] = $username;
+
+                    // Redirect to the dashboard securely
+                    header('Location: ../index.php');
+                    exit;
+                } else {
+                    $error = 'Invalid username or password';
+                }
+            } else {
+                $error = 'Invalid username or password';
+            }
+        } catch (Exception $e) {
+            // Handle any errors (e.g., database connection issues)
+            $error = 'An error occurred. Please try again later.';
+        }
     }
 }
 ?>
