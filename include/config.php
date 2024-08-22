@@ -13,16 +13,6 @@
 // Define Database
 $db = new SQLite3('../games.db');
 
-function configuration($configVar)
-{
-	$db = new SQLite3('../games.db');
-	$configuration = $db->query('SELECT * FROM configuration');
-	while ($config = $configuration->fetchArray(SQLITE3_ASSOC)) 
-	{
-		echo $config[$configVar];
-	}
-}
-
 // Skin
 $style = 'default';
 

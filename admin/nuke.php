@@ -9,8 +9,6 @@
 // --------------------------------------------------------
 
 session_start();
-// Include version info 
-include('../version.php');
 // --------------------------------------------------------
 //
 // Check If User Is Authenticated. Otherwise Redirect To
@@ -27,6 +25,8 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
 //
 // --------------------------------------------------------
 include('../include/config.php');
+include('../include/functions.php');
+include('../version.php');
 
 // --------------------------------------------------------
 //
@@ -35,17 +35,7 @@ include('../include/config.php');
 // --------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['wipe_db'])) {
-		$stmt = $db->prepare('DELETE FROM categories');
-		$stmt2 = $db->prepare('DELETE FROM platforms');
-		$stmt3 = $db->prepare('DELETE FROM games');
-        $stmt->execute();
-		$stmt2->execute();
-		$stmt3->execute();
-		$status = "The database was completely wiped.";
-		echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
-	} else {
-		$status = "There was an error trying to delete/update selected post.";
-		echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
+		wipeDB();
 	}
 }
 ?>

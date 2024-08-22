@@ -1,6 +1,16 @@
 v0.22 - 2024-08-15
 _________________________________________
 
+[Changes]
+- Making code alot nicer and easier to read and use so 
+  most functions will move into /include/functions.php 
+  rather than having bare code being used making it look
+  a little bit amateurish
+
+
+v0.22 - 2024-08-15
+_________________________________________
+
 [Additions]
 - Added footer for pages where it was missing
 - Made GameDB text in footer re-direct to Github page.

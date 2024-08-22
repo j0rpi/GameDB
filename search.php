@@ -1,6 +1,14 @@
 <?php
+// --------------------------------------------------------
+//
+// j0rpi_GameDB
+//
+// File: search.php
+// Purpose: Provides functionality for search engine 
+// 			on main page.
+//
+// --------------------------------------------------------
 include('include/config.php');
-
 header('Content-Type: application/json');
 
 try {
