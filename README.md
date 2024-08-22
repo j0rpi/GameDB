@@ -1,4 +1,4 @@
-![Alt text](/styles/default/img/logo.png?raw=true "Logo")
+![Alt text](/screens/logo_github.png?raw=true "Logo")
 
 # What is GameDB
 GameDB is a personal project of mine which features one single database
