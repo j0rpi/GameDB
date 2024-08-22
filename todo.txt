@@ -4,13 +4,13 @@ todo, ideas or whatever..
 [todos]
 
 # appereance 
-- make css external, and tied to skins
+/ make css external, and tied to skins
 
 
 # administrative
 X make a nicer admin panel
 X ability to modify config from admin panel
-- ability to change admin password
+X ability to change admin password
 - parse styles folder and populate box and make it configurable
 
 # games 
