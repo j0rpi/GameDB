@@ -27,9 +27,9 @@ Since i edit all code in the repository directly, **games.db** will also ship wi
 
 1. Delete **games.db**
 2. Run **/install/**
-3. Follow the instructions on [how to get API access from IGDB for cover search functionality. You will need **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
+3. [How to get API access from IGDB for cover search functionality. You will need **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
 4. Edit **/install/generate_token.php** to match your **ClientID** and **ClientSecret**
-5. Edit **/admin/coversearch.php** to match your **ClientID**, **ClientSecret** and **AccessToken** *(This will be moved to global configuration)*
+5. Edit **/admin/coversearch.php** to match your **ClientID**, **ClientSecret** and **AccessToken**
 6. Rename or delete **/install/** folder
 
 Default admin username and password is **admin / admin**
