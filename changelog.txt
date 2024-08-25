@@ -1,6 +1,14 @@
 v0.24 - 2024-08-23
 _________________________________________
 
+[Changes]
+- Install script has been made to be configurable.
+  Also fixed install script not creating 'configuration' table.
+
+
+v0.24 - 2024-08-23
+_________________________________________
+
 [Additions]
 - Made SQL more secure against various attacks on all pages using SQL.
 

@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .form-container button {
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #0080ff;
             color: white;
             border: none;
             border-radius: 4px;
