@@ -4,7 +4,7 @@ todo, ideas or whatever..
 [todos]
 
 # appereance 
-/ make css external, and tied to skins
+X make css external, and tied to skins
 
 
 # administrative
