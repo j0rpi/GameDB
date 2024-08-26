@@ -5,7 +5,7 @@ body, html {
 			font-family: Bahnschrift;
 			color: white;
 			background-attachment: fixed;
-			background-image: url("../styles/<?php echo $style ?>/img/bg.jpg");
+			background-image: url("img/bg.jpg");
 			background-size: cover;
 		}
 
@@ -40,6 +40,7 @@ body, html {
         }
         a.add-game:hover {
             background-color: #45a049;
+			color: white;
         }
 		
 		tr {
@@ -137,7 +138,7 @@ body, html {
         }
         .form-container button {
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #0080ff;
             color: white;
             border: none;
             border-radius: 4px;
@@ -161,6 +162,10 @@ body, html {
 		}
 		a {
 			color: white;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #0080ff;
 		}
 		.button-row {
 			float:right;
@@ -222,10 +227,99 @@ body, html {
         }
         .info-container button:hover {
             background-color: #45a049;
+			color: white;
         }
 		.thindivider {
 			border-bottom: 1px solid #666666;
 			width: 100%;
-			margin-top: 5px;
-			margin-bottom: 12px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.cover-results img {
+            width: 120px;
+            height: 148px;
+            cursor: pointer;
+            margin-right: 10px;
+			margin-bottom: 5px;
+        }
+		.cover-results img:hover {
+            border: 3px solid black;
+			outline:3px solid #0080ff;  
+			box-shadow: 0 0 5px 5px #48abe0;
+			  z-index: 45;
+		}
+        .cover-results {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+			margin-left: 10px;
+			justify-content: center;
+			
+        }
+		.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+			margin-top: -100px;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+			
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.99);
+            justify-content: center;
+            align-items: center;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 100%;
+            max-width: 850px;
+			max-height: 850px;
+            border-radius: 0px;
+			margin-bottom: 50px;
+        }
+		.modal-content button {
+            padding: 10px;
+            background-color: #0080ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+			font-family: Bahnschrift;
+			width: 150px;
+        }
+		
+		.modal-content input {
+			margin-top: 25px;
+			padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+			font-family: Bahnschrift;
+			background-color: rgb(0,0,0); 
+			background-color: rgba(0,0,0, 0.1); 
+			color:white;
+			width: 75%;
+		}
+        .close {
+			width: 100%;
+            color: white;;
+            float: right;
+            font-size: 16px;
+            font-weight: bold;
+			border-bottom: 1px solid #333333;
+        }
+        .close:hover,
+        .close:focus {
+            text-decoration: none;
+			
+        }
+		.modalCloseButton:hover{
+			color: #0080ff;
+			cursor: pointer;
 		}

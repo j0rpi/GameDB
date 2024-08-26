@@ -27,6 +27,7 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in'])
 //
 // --------------------------------------------------------
 include('../include/config.php');
+include('../include/functions.php');
 include('../version.php');
 // For when we edit/delete posts
 $status = "";
@@ -66,204 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <style>
-        body, html {
-			height: 100%;
-			margin: 0;
-			font-size: 14px;
-			font-family: Bahnschrift;
-			color: white;
-			background-attachment: fixed;
-			background-image: url("../styles/<?php echo $style ?>/img/bg.jpg");
-			background-size: cover;
-		}
-
-		* {
-			box-sizing: border-box;
-			
-		}
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 10px;
-            border: 0px solid #666666;
-            text-align: left;
-        }
-        th {
-            background-color: #0080ff;
-            color: white;
-			font-size: 14px;
-        }
-        
-        a.button {
-            text-decoration: none;
-            padding: 8px 7px;
-            background-color: #0080ff;
-            color: white;
-            border-radius: 4px;
-			margin-top: 12px;
-			width: 75px;
-        }
-        a.button:hover {
-            background-color: #45a049;
-        }
-		
-		tr {
-			border-bottom: 1px solid rgba(255,255,255,0.1);
-		}
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        .pagination a {
-            margin: 0 5px;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: #4CAF50;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .pagination a.active {
-            background-color: #0080ff;
-            color: white;
-            border: 1px solid #0080ff;
-        }
-        .pagination a:hover {
-           background-color: #45a049;
-        }
-        .search-box, .filters {
-            width: 28.5%;
-           padding: 10px;
-            display: inline-flex;
-			font-family: Bahnschrift;
-          
-        }
-        .search-box input, .filters select {
-            width: 100%;
-            margin: 0 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-			font-family: Bahnschrift;
-        }
-		.search-box{
-			margin-left: -20px;	
-			margin-right: -20px;
-			font-family: Bahnschrift;
-		}
-		h1 {
-			margin: 20px;
-			color: white;
-		}
-		.form-container {
-			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.3); 
-			
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .form-container h2 {
-            margin-top: 0;
-        }
-        .form-container form {
-            display: flex;
-            flex-direction: column;
-			border: 0px solid black;
-
-        }
-		.form-container password {
-			padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-			font-family: Bahnschrift;
-			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.1); 
-			
-			color:white;
-		}
-        .form-container input, .form-container select, .form-container password {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-			font-family: Bahnschrift;
-			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.1); 
-			
-			color:white;
-        }
-        .form-container button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-			font-family: Bahnschrift;
-        }
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-		.bg-text {
-			
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: 1;
-			width: 50%;
-			height: 100%;
-			padding: 0px;
-			border: 0px solid black;
-		}
-		a {
-			color: white;
-		}
-		.button-row {
-			float:right;
-			margin-bottom: 15px;
-		}
-		.button-row-text {
-			float:left;
-			font-size: 16px;
-		}
-		textarea{
-			font-family: Bahnschrift;
-			width: 350px;
-			height: 100px;
-			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.1); 
-
-			color:white;
-		}
-		select option {
-			background-color: #222222;
-			appearance: none;
-			-webkit-appearance: none;
-			color: #fff;
-			cursor: pointer;
-		}
-		th:first-child{
-		border-radius: 8px 0px 0px 8px;
-		}
-		th:last-child{
-		border-radius: 0px 8px 8px 0px;
-		}
-		.errorbar {
-			width: 100%
-			height: 25px;
-			padding: 10px;
-			font-family: Bahnschrift;
-			font-size: 14px;
-			background-color: darkred;
-		}
-	
-    </style>
+    <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.admin.css">
 </head>
 <body>
 <?php
@@ -294,7 +98,8 @@ else
 ?>
     <h1>Admin Dashboard<span style="float:right; font-size: 16px; font-weight: normal;">Logged in As <strong><?php echo $_SESSION['admin_username']; ?></strong></span><br><span style="float:left; font-size: 12px; font-weight: normal;"></span><span style="float:right; font-size: 12px; font-weight: normal;"><a href="password.php" style="">Change Password</a> | <a href="logout.php" style="">Logout</a></h1><br>
     <div class="form-container">
-	<p style="font-size: 16px;"><a href="index.php">Admin Dashboard</a> > Configuration</p>
+	<span style="font-size: 16px;"><a href="index.php">Admin Dashboard</a> > Configuration</span>
+	<br><br><div class='thindivider'></div>
 <form method='POST'>
 	<?php
 		$result = $db->query('SELECT * FROM configuration');

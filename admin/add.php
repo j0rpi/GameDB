@@ -18,6 +18,7 @@ $db = new SQLite3('../games.db');
 //
 // --------------------------------------------------------
 include('../include/config.php');
+include('../include/functions.php');
 
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
     header('Location: ../admin/login.php');
@@ -51,178 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Game</title>
-    <style>
-        body {
-            height: 100%;
-			margin: 0;
-			font-family: Bahnschrift;
-			color: white;
-			background-attachment: fixed;
-			background-image: url("../styles/<?php echo $style ?>/img/bg.jpg");
-			background-size: cover;
-			
-        }
-		* {
-			box-sizing: border-box;
-		}
-        .container {
-			text-align: left;
-			width: 20%;
-			
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			background-color: rgb(0,0,0); /* Fallback color */
-			background-color: rgba(0,0,0, 0.5); /* Black w/opacity/see-through */
-		
-			margin-top: 15px;
-        }
-        h2 {
-            margin-top: 0;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="number"], select {
-            padding: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-			font-family: Bahnschrift;
-        }
-        button {
-            padding: 10px;
-            background-color: #0080ff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-			font-family: Bahnschrift;
-			margin-bottom: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-		}
-		button:focus {
-            background-color: #45a049;
-		}
-		.bg-text {
-			background-color: rgb(0,0,0); /* Fallback color */
-			background-color: rgba(0,0,0, 0.1); /* Black w/opacity/see-through */
-			
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: 2;
-			width: 100%;
-			height: 100%;
-			padding: 20px;
-			border: 0px solid black;
-
-		}
-		.optiondisabled {
-			color: #0080ff;
-		}
-		.cover-search {
-            display: flex;
-            align-items: center;
-            margin-top: 50px;
-        }
-        .cover-search input {
-            flex: 1;
-            margin-right: 10px;
-			
-        }
-		
-		input:focus {
-			outline: none;
-            flex: 1;
-            margin-right: 10px;
-			
-        }
-        .cover-results img {
-            width: 120px;
-            height: 148px;
-            cursor: pointer;
-            margin-right: 10px;
-			margin-bottom: 5px;
-        }
-		.cover-results img:hover {
-            border: 3px solid black;
-			outline:3px solid #0080ff;  
-			box-shadow: 0 0 5px 5px #48abe0;
-			  z-index: 45;
-		}
-        .cover-results {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-			margin-left: 10px;
-			justify-content: center;
-			
-        }
-		.modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-			margin-top: -100px;
-            width: 100%;
-            height: auto;
-            overflow: hidden;
-			
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: rgba(0, 0, 0, 0.99);
-			
-            justify-content: center;
-            align-items: center;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 100%;
-            max-width: 850px;
-			max-height: 850px;
-            border-radius: 0px;
-			margin-bottom: 50px;
-        }
-        .close {
-			width: 100%;
-            color: white;;
-            float: right;
-            font-size: 16px;
-            font-weight: bold;
-			border-bottom: 1px solid #333333;
-        }
-        .close:hover,
-        .close:focus {
-            text-decoration: none;
-			
-        }
-		.modalCloseButton:hover{
-			color: #0080ff;
-			cursor: pointer;
-		}
-		.a2 {
-			text-decoration: none;
-			color: white;
-        }
-    </style>
-	
+    <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.catplat.css">
 </head>
 <body>
 <center>
 <div class="bg-text">
-    <div class="container">
+    <div class="form-container" style="text-align: left;">
        
         <form method="POST">
             <label for="title">Title</label>
@@ -316,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<button type="button" style="width: 100%;" onclick="openModal()">🔍 Search</button>
 
 
-            <label for="completed">Completed</label>
+            <label for="completed"  style="margin-top: 10px;">Completed</label>
             <select id="completed" name="completed">
                 <option value="0">No</option>
                 <option value="1">Yes</option>

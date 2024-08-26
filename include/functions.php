@@ -16,7 +16,6 @@
 // Usage: displayGameID(id) 
 //
 // --------------------------------------------------------
-
 function displayGameByID($gameID)
 {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
@@ -52,7 +51,7 @@ function displayGameCoverByID($gameID, $width)
 function getConfigVar($config_var)
 {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-    $stmt = $db->prepare('SELECT :config_var FROM "configuration"');
+    $stmt = $db->prepare('SELECT "' . $config_var . '" FROM "configuration"');
     $stmt->bindValue(':config_var', $config_var, SQLITE3_TEXT);
     $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     print_r($var[$config_var]);
@@ -67,10 +66,7 @@ function getConfigVar($config_var)
 // --------------------------------------------------------
 function refreshIGDBKey($clientID, $clientSecret)
 {
-    $clientId = getConfigVar("IGDB_clientID");
-    $clientSecret = getConfigVar("IGDB_clientSecret");
-
-    $ch = curl_init();
+	$ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, 'https://id.twitch.tv/oauth2/token');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -97,16 +93,16 @@ function refreshIGDBKey($clientID, $clientSecret)
 
 // --------------------------------------------------------
 //
-// Wipe the database
+// Wipe the whole database
 // 
 // Usage: wipeDB() 
 //
 // --------------------------------------------------------
-function wipeDB()
+function wipeAll()
 {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['wipe_db'])) {
+        if (isset($_POST['wipeAll'])) {
             $stmt1 = $db->prepare('DELETE FROM categories');
             $stmt2 = $db->prepare('DELETE FROM platforms');
             $stmt3 = $db->prepare('DELETE FROM games');
@@ -116,7 +112,76 @@ function wipeDB()
             $status = "The database was completely wiped.";
             echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
         } else {
-            $status = "There was an error trying to delete/update selected post.";
+            $status = "There was an error trying to wipe the database.";
+            echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
+        }
+    }
+}
+
+// --------------------------------------------------------
+//
+// Wipes categories from database
+// 
+// Usage: wipeCats() 
+//
+// --------------------------------------------------------
+function wipeCats()
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['wipeCats'])) {
+            $stmt = $db->prepare('DELETE FROM categories');
+            $stmt->execute();
+            $status = "Categories was completely wiped.";
+            echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
+        } else {
+            $status = "There was an error trying to wipe categories.";
+            echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
+        }
+    }
+}
+
+// --------------------------------------------------------
+//
+// Wipes platforms from database
+// 
+// Usage: wipePlats() 
+//
+// --------------------------------------------------------
+function wipePlats()
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['wipePlats'])) {
+            $stmt = $db->prepare('DELETE FROM platforms');
+            $stmt->execute();
+            $status = "Platforms was completely wiped.";
+            echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
+        } else {
+            $status = "There was an error trying to wipe platforms";
+            echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
+        }
+    }
+}
+
+// --------------------------------------------------------
+//
+// Wipes platforms from database
+// 
+// Usage: wipePlats() 
+//
+// --------------------------------------------------------
+function wipeGames()
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['wipePlats'])) {
+            $stmt = $db->prepare('DELETE FROM ga,es');
+            $stmt->execute();
+            $status = "Games was completely wiped.";
+            echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
+        } else {
+            $status = "There was an error trying to wipe games.";
             echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
         }
     }
@@ -129,7 +194,6 @@ function wipeDB()
 // Usage: changePassword(Old Password, New Password, Confirm New Password)
 //
 // --------------------------------------------------------
-
 function changePassword($oldPassword, $newPassword, $confirmPassword) {
     // Check if the user is logged in
     if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {

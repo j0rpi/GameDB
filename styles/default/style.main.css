@@ -5,7 +5,7 @@ body, html {
 			color: white;
 			font-size: 14px;
 			background-attachment: fixed;
-			background-image: url("styles/<?php echo $style . "/" . $background ?>");
+			background-image: url("img/bg.jpg");
 			filter: blur(1);
 			background-size: cover;
 			
@@ -97,7 +97,7 @@ body, html {
 		}
 		input[type=text] {
 			color: white;
-			background-image: url('styles/<?php echo $style . "/img/mag.png"; ?>');
+			background-image: url("img/mag.png");
 			background-size: 16px 16px;
 			background-position: 15px 10px;
 			background-repeat: no-repeat;
