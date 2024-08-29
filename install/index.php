@@ -136,7 +136,7 @@ function doInstall()
 			border: 0px solid black;
 
         }
-        .form-container input, .form-container select {
+        .form-container input[type=text], .form-container input[type=password] {
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -144,8 +144,33 @@ function doInstall()
 			font-family: Bahnschrift;
 			background-color: rgb(0,0,0); 
 			background-color: rgba(0,0,0, 0.1); 
-			
-			color:white;
+			color:#fff;
+        }
+		.form-container select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+			font-family: Bahnschrift;
+			background-color: rgba(0,0,0, 0.1); 
+			color:#fff;
+        }
+		.form-container option {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+			font-family: Bahnschrift;
+			background-color: rgba(0,0,0, 0.2); 
+			color:#000;
+        }
+		.form-container option:focus {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+			font-family: Bahnschrift;
+			background-color: rgba(0,0,0,0.9); 
         }
         .form-container button {
             padding: 10px;
@@ -184,15 +209,15 @@ function doInstall()
 				
 						<label for='admin_username'>Language</label><br>
 						<select name="language">
-							<option value="english">English</option>
-							<option value="swedish">Swedish</option>
+							<option value="english">🇬🇧 English</option>
+							<option value="swedish">🇸🇪 Swedish</option>
 						</select>
 						
 						<label for='admin_username'>Admin Username</label><br>
 						<input type='text' id='admin_username' name='admin_username' placeholder='Admin Username ...'><br><br>
 						
 						<label for='admin_password'>Admin Password</label><br>
-						<input type='password' id='admin_password' name='admin_password' placeholder='Admin Password ...'><br><br>
+						<input type='password' id='admin_password' name='admin_password' placeholder='Admin Password ...' autocomplete='new-password'><br><br>
 						
 						<label for='style'>Style</label><br>
 						<input type='text' id='style' name='style' placeholder='Style ...' value='default'><br><br>
@@ -224,7 +249,7 @@ function doInstall()
 						<label for='IGDB_accessToken'>IGDB Access Token</label><br>
 						<input type='text' id='IGDB_accessToken' name='IGDB_accessToken' placeholder='IGDB Client Access Token'><br><br>
 						
-						<input type='submit' name='doInstall' value='Install' style='background-color: #0080ff; border: 1px solid black;'>
+						<input type='submit' name='doInstall' value='Install' style='background-color: #0080ff; border: 1px solid black; padding: 5px; color: white; font-family: Bahnschrift;'>
 						</div>
 				</form>
 		</div>
