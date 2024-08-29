@@ -15,10 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 function doInstall()
 {
-	// Admin username/password
-	$admin_username = ('admin');
-	$admin_password = password_hash('admin', PASSWORD_DEFAULT);
-
 	$error = "";
 	
 	// Check if database exists already
@@ -78,8 +74,8 @@ function doInstall()
 		short_prefix TEXT NOT NULL
 	)');
 
-	// Insert sample admin account
-	$db->exec("INSERT INTO admins (username, password) VALUES ('$admin_username', '$admin_password')");
+	// Insert admin account
+	$db->exec("INSERT INTO admins (username, password) VALUES ('" . $_POST['admin_username'] . "', '" . password_hash($_POST['admin_password'], PASSWORD_DEFAULT) . "')");
 
 	// Create default config
 	$db->exec("INSERT INTO configuration (style, headerTitle, listMax, minSelectableYear, useRatingIcons, usePlatformIcons, vodLinkText, IGDB_clientID, IGDB_clientSecret, IGDB_accessToken) VALUES ('" . $_POST['style'] . "','" .  $_POST['headerTitle'] . "','" .  $_POST['listMax'] . "','" . $_POST['minSelectableYear'] . "','" . $_POST['useRatingIcons'] . "','" . $_POST['usePlatformIcons'] . "','" . $_POST['vodLinkText'] . "','" . $_POST['IGDB_clientID'] . "','" . $_POST['IGDB_clientSecret'] . "','" .  $_POST['IGDB_accessToken'] . "')");
