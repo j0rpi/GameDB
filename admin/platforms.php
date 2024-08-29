@@ -178,11 +178,12 @@ else
 						// --------------------------------------------------------
 						?>
 						<?php 
-						if (file_exists("../styles/default/img/platform_icons/" . $platform['short_prefix'] . ".png")) {
-							echo "<td style='text-align: center;' name='platform_icon'><img style='width: 32px;' src='../styles/default/img/platform_icons/" . $platform['short_prefix'] . ".png' /></td>";
+						
+						if (file_exists("../styles/" . $style . "/img/platform_icons/" . $platform['short_prefix'] . ".png")) {
+							echo "<td style='text-align: center;' name='platform_icon'><img style='width: 32px;' src='../styles/" . $style . "/img/platform_icons/" . $platform['short_prefix'] . ".png' /></td>";
 						}
 						else {
-							echo "<td style='text-align: center;' name='platform_icon'><img style='width: 32px;' src='../styles/default/img/platform_icons/unknown.png' /></td>";
+							echo "<td style='text-align: center;' name='platform_icon'><img style='width: 32px;' src='../styles/" . $style . "/img/platform_icons/unknown.png' /></td>";
 						}
 						?>
 						<td><center><input type="text" name="name" value="<?= $platform['name'] ?>" style="width: 200px;"></center></td>

@@ -29,7 +29,6 @@ function displayGameByID($gameID)
 //
 // Get game cover by game ID
 // 
-// Usage: displayGameCoverByID(id) 
 //
 // --------------------------------------------------------
 function displayGameCoverByID($gameID, $width)
@@ -54,7 +53,22 @@ function getConfigVar($config_var)
     $stmt = $db->prepare('SELECT "' . $config_var . '" FROM "configuration"');
     $stmt->bindValue(':config_var', $config_var, SQLITE3_TEXT);
     $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-    print_r($var[$config_var]);
+    print $var[$config_var];
+}
+// --------------------------------------------------------
+//
+// Get configuration value from database
+// 
+// Usage: getConfigInt(keyname) 
+//
+// --------------------------------------------------------
+function getConfigVarInt($config_var)
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $stmt = $db->prepare('SELECT "' . $config_var . '" FROM "configuration"');
+    $stmt->bindValue(':config_var', $config_var, SQLITE3_INTEGER);
+    $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    return($var[$config_var]);
 }
 
 // --------------------------------------------------------

@@ -7,6 +7,15 @@
 // Purpose: Display all games in database
 //
 // --------------------------------------------------------
+//
+// Redirect to install script if games.db does not exist.
+//
+// --------------------------------------------------------
+if(!file_exists('games.db'))
+{
+	header('Location: install');
+    exit;
+}
 
 session_start();
 
@@ -18,13 +27,13 @@ session_start();
 include('version.php');
 include('include/config.php');
 include('include/functions.php');
-include('styles/' . $style . '/config.php');
+
 // --------------------------------------------------------
 //
 // Year Selector Min/Max
 //
 // --------------------------------------------------------
-$yearss = range($minSelectableYear, strftime("%Y", time()));
+$yearss = range((int)getConfigVarInt('minSelectableYear'), strftime("%Y", time()));
 // --------------------------------------------------------
 //
 // Define Database
@@ -48,7 +57,7 @@ $platform = isset($_GET['platform']) ? $_GET['platform'] : '';
 // Set total number of items per page
 //
 // --------------------------------------------------------
-$per_page = $listMax;
+$per_page = (int)getConfigVarInt('listMax');
 $offset = ($page - 1) * $per_page;
 // --------------------------------------------------------
 //
@@ -189,7 +198,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
                     <td style="text-align: center">${game.title}</td>
                     <td style="text-align: center">${game.genre}</td>
                     <td style="text-align: center">${game.year}</td>
-			<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php echo $style . "/img/platform_icons/"; ?>${game.platform}.png" /></td>
+			<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
                     <td style="text-align: center">${game.desc}</td>
                     <td style="text-align: center;">${game.rating}</td>
                     <td style="text-align: center;">${game.completed ? 'Yes' : 'No'}</td>
@@ -245,7 +254,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
 ?>
 <div class="bg-text">
 <div class="logodiv">
-    <img src="styles/<?php echo $style . "/" . $logo ?>" /> 
+    <img src="styles/<?php getConfigVar('style')?>/img/logo.png" /> 
 </div>
 <?php 
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) 
@@ -453,9 +462,9 @@ else
             <td><?= $game['title'] ?></td>
             <td style="text-align: center"><?= $game['genre'] ?></td>
 			<td style="text-align: center"><?= $game['year'] ?></td>
-			<td style="text-align: center"><img title="<?= $game['platform'] ?>" class="platformicon" src="styles/<?php echo $style . "/img/platform_icons/"; ?><?= $game['platform'] ?>.png" /></td>
+			<td style="text-align: center"><img title="<?= $game['platform'] ?>" class="platformicon" src="styles/<?php getConfigVar('style')?>/img/platform_icons/<?= $game['platform'] ?>.png"></td>
             <td><?= $game['desc'] ?></td>
-            <td style="text-align: center;"><img src="styles/<?php echo $style . "/img/rating_icons/"; ?><?= $game['rating'] ?>.png" /></td>
+            <td style="text-align: center;"><img src="styles/<?php getConfigVar('style')?>/img/rating_icons/<?= $game['rating'] ?>.png" /></td>
             <td style="text-align: center;"><?= $game['completed'] ? 'Yes' : 'No' ?></td>
             <td style="text-align: center;"><?= $game['speedrun'] ? 'Yes' : 'No' ?></td>
             <td><a href="<?= $game['vod'] ?>">WATCH</a></td>
@@ -482,7 +491,7 @@ else
 // --------------------------------------------------------
 ?>
 <div class="pagination">
-    <?php for ($i = 1; $i <= ceil($total_count / $per_page); $i++): ?>
+    <?php for ($i = 1; $i <= ceil($total_count / (int)$per_page); $i++): ?>
          <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
     <?php endfor; ?>
 </div>
