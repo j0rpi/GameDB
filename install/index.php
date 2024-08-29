@@ -52,8 +52,7 @@ function doInstall()
 		vodLinkText TEXT NOT NULL,
 		IGDB_clientID TEXT,
 		IGDB_clientSecret TEXT,
-		IGDB_accessToken TEXT,
-		language TEXT
+		IGDB_accessToken TEXT
 	)');
 
 	// Create admins table
@@ -75,11 +74,11 @@ function doInstall()
 		short_prefix TEXT NOT NULL
 	)');
 
-	// Insert sample admin account
+	// Insert admin account
 	$db->exec("INSERT INTO admins (username, password) VALUES ('" . $_POST['admin_username'] . "', '" . password_hash($_POST['admin_password'], PASSWORD_DEFAULT) . "')");
 
 	// Create default config
-	$db->exec("INSERT INTO configuration (style, headerTitle, listMax, minSelectableYear, useRatingIcons, usePlatformIcons, vodLinkText, IGDB_clientID, IGDB_clientSecret, IGDB_accessToken, language) VALUES ('" . $_POST['style'] . "','" .  $_POST['headerTitle'] . "','" .  $_POST['listMax'] . "','" . $_POST['minSelectableYear'] . "','" . $_POST['useRatingIcons'] . "','" . $_POST['usePlatformIcons'] . "','" . $_POST['vodLinkText'] . "','" . $_POST['IGDB_clientID'] . "','" . $_POST['IGDB_clientSecret'] . "','" .  $_POST['IGDB_accessToken'] . "', '" . $_POST['language'] . "')");
+	$db->exec("INSERT INTO configuration (style, headerTitle, listMax, minSelectableYear, useRatingIcons, usePlatformIcons, vodLinkText, IGDB_clientID, IGDB_clientSecret, IGDB_accessToken) VALUES ('" . $_POST['style'] . "','" .  $_POST['headerTitle'] . "','" .  $_POST['listMax'] . "','" . $_POST['minSelectableYear'] . "','" . $_POST['useRatingIcons'] . "','" . $_POST['usePlatformIcons'] . "','" . $_POST['vodLinkText'] . "','" . $_POST['IGDB_clientID'] . "','" . $_POST['IGDB_clientSecret'] . "','" .  $_POST['IGDB_accessToken'] . "')");
 	
 	// Finally when finished, redirect to admin Page
 	header("Location: ../admin/login.php");
@@ -181,13 +180,6 @@ function doInstall()
 				<h2>Install Script</h2></center>
 				<div class='form-container'>
 				<form method="POST">
-				
-						<label for='admin_username'>Language</label><br>
-						<select name="language">
-							<option value="english">English</option>
-							<option value="swedish">Swedish</option>
-						</select>
-						
 						<label for='admin_username'>Admin Username</label><br>
 						<input type='text' id='admin_username' name='admin_username' placeholder='Admin Username ...'><br><br>
 						

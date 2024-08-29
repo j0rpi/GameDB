@@ -190,7 +190,7 @@ function wipeGames()
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['wipePlats'])) {
-            $stmt = $db->prepare('DELETE FROM ga,es');
+            $stmt = $db->prepare('DELETE FROM games');
             $stmt->execute();
             $status = "Games was completely wiped.";
             echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
