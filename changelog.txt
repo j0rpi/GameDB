@@ -1,3 +1,21 @@
+v0.27 - 2024-09-02
+_________________________________________
+
+[Additions]
+- Swedish language file complete (for now)
+- Added language selection to install script
+- Added language selection to config page
+
+[Changes]
+- Made most pages fetch config variables from database
+- Redesigned /admin/nuke.php and also added the possibility of choosing what to wipe
+
+[Fixes]
+- Password fields in /admin/password.php autocompleting old passwords
+- Fixed a typo in SQL query in wipeGames()
+- Fixed footer in /admin/nuke.php
+
+
 v0.26 - 2024-08-26
 _________________________________________
 

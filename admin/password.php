@@ -91,8 +91,8 @@ else
 		<p style="margin-top: 25px;">
 		<center>
 			<form method="POST" style="width: 250px;">
-				<input type="password" name="old_password" placeholder="Old Password" value="" required>
-				<input type="password" name="new_password" placeholder="New Password" required>
+				<input type="password" name="old_password" placeholder="Old Password" value="" autocomplete='new-password' required>
+				<input type="password" name="new_password" placeholder="New Password" autocomplete='new-password' required>
 				<input type="password" name="confirm_password" placeholder="Confirm New Password" required>
 				<button type="submit" style="background-color: #0080ff;">Change Password</button>
 			</form>

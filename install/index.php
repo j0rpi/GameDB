@@ -249,7 +249,7 @@ function doInstall()
 						<label for='IGDB_accessToken'>IGDB Access Token</label><br>
 						<input type='text' id='IGDB_accessToken' name='IGDB_accessToken' placeholder='IGDB Client Access Token'><br><br>
 						
-						<input type='submit' name='doInstall' value='Install' style='background-color: #0080ff; border: 1px solid black; padding: 5px; color: white; font-family: Bahnschrift;'>
+						<input type='submit' name='doInstall' value='Install' style='background-color: #0080ff; border: 1px solid black; border-radius: 4px; padding: 10px; color: white; font-family: Bahnschrift;'>
 						</div>
 				</form>
 		</div>

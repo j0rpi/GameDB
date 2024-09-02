@@ -105,6 +105,12 @@ else
 		$result = $db->query('SELECT * FROM configuration');
 		$config = $result->fetchArray(SQLITE3_ASSOC);
 	?>
+	<label for='admin_username'>Language</label><br>
+	<select name="language">
+		<option value="english">🇬🇧 English</option>
+		<option value="swedish">🇸🇪 Swedish</option>
+	</select>
+	
 	<label for='style'>Style</label>
 	<input type='text' id='style' name='style' value='<?php echo $config["style"]; ?>' required>
 
