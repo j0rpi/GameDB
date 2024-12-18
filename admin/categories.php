@@ -85,25 +85,7 @@ $result = $db->query('SELECT * FROM categories');
 	<link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.catplat.css">
 </head>
 <body>
-<?php
-// --------------------------------------------------------
-//
-// Display Warning If INSTALL Directory Is Still Present
-// While Showing, Tell The User To Genererate IGDB Token
-//
-// --------------------------------------------------------
-$folder = "../install";
-$keygen = false;
-if(is_dir($folder)) {
-	echo "<div class='errorbar'><span style='margin-bottom: 2px'>⚠</span>️ Its strongly adviced to generate an <a href='../install/generate_token.php' style='text-decoration: none; border-bottom: 1px solid white;'>Access Token key for IGDB</a> now before removing the <strong>INSTALL</strong> folder for cover art search support!</div><br><br>";
-	echo "<div class='bg-text' style='margin-top: 50px;'>";
-	$keygen = true;
-}
-else
-{
-	echo "<br><br><div class='bg-text' style='margin-top: 50px;'>";
-}
-?>
+<br><div class='bg-text'>
 <?php
 // --------------------------------------------------------
 //
