@@ -264,11 +264,13 @@ else
 					// --------------------------------------------------------
 					?>
 						<select id="rating" name="rating">
-							<?php foreach($ratings as $rating) : ?>
-								<option value="<?php echo $rating; ?>"><?php echo $rating; ?></option>
-							<?php endforeach; ?>
+    						<?php foreach($ratings as $rating) : ?>
+        						<option value="<?php echo $rating; ?>" <?php if ($rating == $game['rating']) echo 'selected'; ?>>
+            						<?php echo $rating; ?>
+        						</option>
+    						<?php endforeach; ?>
 						</select>
-						</td>
+					</td>
 					<?php
 					// --------------------------------------------------------
 					//

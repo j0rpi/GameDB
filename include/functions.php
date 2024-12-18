@@ -8,6 +8,13 @@
 //
 // --------------------------------------------------------
 
+// --------------------------------------------------------
+//
+// Gets the real name of platform by getting it through its short prefix
+// 
+// Usage: getPlatformName(short_prefix)
+//
+// --------------------------------------------------------
 function getPlatformName($short_prefix)
 {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);

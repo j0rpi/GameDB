@@ -33,7 +33,10 @@ include('include/functions.php');
 // Year Selector Min/Max
 //
 // --------------------------------------------------------
-$yearss = range((int)getConfigVarInt('minSelectableYear'), strftime("%Y", time()));
+$yearss = range(
+    (int)getConfigVarInt('minSelectableYear'), 
+    (int)date("Y") 
+);
 // --------------------------------------------------------
 //
 // Define Database
