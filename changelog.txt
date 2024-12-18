@@ -1,3 +1,29 @@
+v0.4 - 2024-12-17
+_________________________________________
+
+[Changes]
+- Re-designed rating icons.
+- When hovering platform icon, it will now display it's name instead of its short prefix
+
+Todo: Replace short_prefix with name in modal and title
+
+
+v0.31 - 2024-12-04
+_________________________________________
+
+[Changes]
+- Rating system is now based on CSS and JS. Default skin will utilize this
+- styles/default/styles.ratings.css added - This file holds CSS rules for the rating circle
+- Modified /admin/coversearch.php slightly to accept IGDB ClientID and AccessToken from database instead of being hardcoded.
+
+
+v0.3 - 2024-12-04
+_________________________________________
+
+[Changes]
+- Generated IGDB access token will automaticly populate input field in install script
+
+
 v0.27 - 2024-09-02
 _________________________________________
 

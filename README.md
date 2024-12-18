@@ -22,17 +22,15 @@ GameDB uses PHP and SQLite3.
 
 ... and more to come i guess.
 
-# Clean Install
-Since i edit all code in the repository directly, **games.db** will also ship with GameDB. 
+# Requirements
+- PHP
 
-1. Delete **games.db**
+# Clean Install 
+1. [How to obtain an access token for IGDB API using Twitch **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
 2. Run **/install/**
-3. [How to get API access from IGDB for cover search functionality. You will need **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
-4. Edit **/install/generate_token.php** to match your **ClientID** and **ClientSecret**
-5. Edit **/admin/coversearch.php** to match your **ClientID**, **ClientSecret** and **AccessToken**
-6. Rename or delete **/install/** folder
+3. Rename or delete **/install/** folder
 
-Default admin username and password is **admin / admin**
+
 
 # Screenshots 
 ![Alt text](/screens/index.jpg?raw=true "Index")

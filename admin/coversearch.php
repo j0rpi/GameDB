@@ -7,67 +7,58 @@
 // Purpose: Provides IGDB cover search functionality.
 //
 // --------------------------------------------------------
+include('../include/functions.php');
 header('Content-Type: application/json');
 
-// Replace with your IGDB credentials
-$clientId = 'bhakr82r25allnvftg3ib9kjzwyrq0';
-$clientSecret = '2pukbxhkgdfq220lokej9s5unidg4k';
-$accessToken = '5t05ostkazvfzdk3zdp3hw94801yul';
-
-// Fetch the search query
-$query = isset($_GET['query']) ? $_GET['query'] : '';
-
-if (!$query) {
-    echo json_encode(['error' => 'No query provided']);
-    exit();
+$query = $_GET['query'] ?? '';
+if (empty($query)) {
+    echo json_encode(['error' => 'Search query is required']);
+    exit;
 }
 
-// Initialize cURL session
+$clientID = getIGDBVar('IGDB_clientID');
+$accessToken = getIGDBVar('IGDB_accessToken');
+
+$postData = "fields name, cover.url; search \"$query\"; limit 16;";
+error_log("IGDB Query: " . $postData);
+
 $ch = curl_init();
-
-// IGDB
-$url = 'https://api.igdb.com/v4/games';
-
-$headers = [
-    'Client-ID: ' . $clientId,
+curl_setopt($ch, CURLOPT_URL, 'https://api.igdb.com/v4/games');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Client-ID: ' . $clientID,
     'Authorization: Bearer ' . $accessToken,
     'Content-Type: application/json'
-];
-
-$data = "fields name,cover.url; search \"$query\"; limit 18;";
-
-// Set cURL options
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-// Execute cURL request
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-if(curl_errno($ch)) {
-    echo json_encode(['error' => curl_error($ch)]);
-    curl_close($ch);
-    exit();
+if ($httpCode === 401) {
+    error_log("Authentication Error: Response - $response");
+    echo json_encode(['error' => 'Authentication Error: Please check Client ID and Access Token', 'status_code' => $httpCode]);
+    exit;
 }
 
-$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+if ($httpCode === 200) {
+    error_log("IGDB Raw Response: " . $response);
+    $decodedResponse = json_decode($response, true);
+    
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode(['error' => 'Invalid JSON response from IGDB']);
+        exit;
+    }
+    
+    if (empty($decodedResponse)) {
+        echo json_encode(['error' => 'No games found']);
+        exit;
+    }
+
+    echo json_encode(['data' => $decodedResponse]); // Send expected structure
+} else {
+    error_log("IGDB Error Response: " . $response);
+    echo json_encode(['error' => 'Failed to fetch data from IGDB', 'status_code' => $httpCode, 'response' => $response]);
+}
+
 curl_close($ch);
-
-// Check if the response code is not 200 (success)
-if ($http_code != 200) {
-    echo json_encode(['error' => 'Request failed', 'status_code' => $http_code, 'response' => $response]);
-    exit();
-}
-
-// Decode the response for further debugging
-$responseData = json_decode($response, true);
-
-if (json_last_error() !== JSON_ERROR_NONE) {
-    echo json_encode(['error' => 'JSON decode error', 'response' => $response]);
-    exit();
-}
-
-// Output the response with the query included for debugging
-echo json_encode(['query' => $query, 'data' => $responseData, 'raw_response' => $response]);
+?>

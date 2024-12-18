@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <center>
-<div class="bg-text">
-    <div class="form-container" style="text-align: left;">
+<div class="bg-text" style=" padding-top: 50px">
+    <div class="form-container" style="text-align: left;;">
        
         <form method="POST">
             <label for="title">Title</label>
@@ -198,51 +198,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Search for cover art
         function searchCovers() {
-            const query = document.getElementById('cover-search-input').value;
-            fetch(`coversearch.php?query=${query}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Network response was not ok ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const resultsContainer = document.getElementById('cover-results');
-                    resultsContainer.innerHTML = '';
-                    if (data.error) {
-                        resultsContainer.innerHTML = `<p>Error: ${data.error}</p>`;
-                        if (data.status_code) {
-                            resultsContainer.innerHTML += `<p>Status Code: ${data.status_code}</p>`;
-                        }
-                        if (data.response) {
-                            resultsContainer.innerHTML += `<p>Response: ${data.response}</p>`;
-                        }
-                        return;
-                    }
-                    if (data.data.length === 0) {
-                        resultsContainer.innerHTML = '<p>😔 No matching cover found.</p>';
-                        return;
-                    }
-                    data.data.forEach(game => {
-                        if (game.cover) {
-                            const img = document.createElement('img');
-                            img.src = game.cover.url.replace('thumb', 'cover_big'); // Use higher resolution image
-                            img.onclick = () => {
-                                document.getElementById('cover').value = img.src;
-                                closeModal();
-                            };
-                            resultsContainer.appendChild(img);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching cover art:', error);
-                    const resultsContainer = document.getElementById('cover-results');
-					const modalContainer = document.getElementById('modal');
-                    resultsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
-					modalContainer.innerHTML = `<p>Error: ${error.message}</p>`;
-                });
-        }
+    const query = document.getElementById('cover-search-input').value.trim();
+    if (!query) {
+        alert('Please enter a search query.');
+        return;
+    }
+    fetch(`coversearch.php?query=${encodeURIComponent(query)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response Data:', data); // Log the full response for debugging
+            const resultsContainer = document.getElementById('cover-results');
+            resultsContainer.innerHTML = '';
+            if (data.error) {
+                resultsContainer.innerHTML = `<p>Error: ${data.error}</p>`;
+                if (data.status_code) {
+                    resultsContainer.innerHTML += `<p>Status Code: ${data.status_code}</p>`;
+                }
+                if (data.response) {
+                    resultsContainer.innerHTML += `<p>Response: ${data.response}</p>`;
+                }
+                return;
+            }
+            if (!data.data || data.data.length === 0) {
+                resultsContainer.innerHTML = '<p>😔 No matching cover found.</p>';
+                return;
+            }
+            data.data.forEach(game => {
+                if (game.cover) {
+                    const img = document.createElement('img');
+                    img.src = game.cover.url.replace('thumb', 'cover_big'); // Use higher resolution image
+                    img.onclick = () => {
+                        document.getElementById('cover').value = img.src;
+                        closeModal();
+                    };
+                    resultsContainer.appendChild(img);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching cover art:', error);
+            const resultsContainer = document.getElementById('cover-results');
+            resultsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+        });
+}
 
         // Close the modal when clicking outside of the modal content
         window.onclick = function(event) {

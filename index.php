@@ -168,6 +168,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
     <title><?php echo $headerTitle; ?> :: Index</title>
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/<?php getConfigVar('style') ?>/style.main.css">
+	<link rel="stylesheet" href="styles/<?php getConfigVar('style') ?>/style.ratings.css">
 	<script>
 <?php
 
@@ -198,9 +199,13 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
                     <td style="text-align: center">${game.title}</td>
                     <td style="text-align: center">${game.genre}</td>
                     <td style="text-align: center">${game.year}</td>
-			<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
+				<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
                     <td style="text-align: center">${game.desc}</td>
-                    <td style="text-align: center;">${game.rating}</td>
+                    <td class="rating-column">
+						<div class="rating-segment" data-rating="${game.rating}">
+							<span class="rating-text">${game.rating}</span>
+						</div>
+					</td>
                     <td style="text-align: center;">${game.completed ? 'Yes' : 'No'}</td>
                     <td style="text-align: center;">${game.speedrun ? 'Yes' : 'No'}</td>
                     <td><a href="${game.vod}"><a href="${game.vod}">WATCH</a></td>
@@ -243,6 +248,20 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
 			document.title = "GameDB :: Index";
         }
 	</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Select all elements with class starting with "rating-segment-"
+    document.querySelectorAll('[class^="rating-segment-"]').forEach(function (circle) {
+        const rating = parseInt(circle.getAttribute('data-rating')) || 1;
+        const normalizedRating = Math.min(Math.max(rating, 1), 10);
+        circle.style.setProperty('--rating', normalizedRating);
+    });
+});
+</script>
+
+
+
+</script>
 </head>
 <body>
 <?php
@@ -462,9 +481,16 @@ else
             <td><?= $game['title'] ?></td>
             <td style="text-align: center"><?= $game['genre'] ?></td>
 			<td style="text-align: center"><?= $game['year'] ?></td>
-			<td style="text-align: center"><img title="<?= $game['platform'] ?>" class="platformicon" src="styles/<?php getConfigVar('style')?>/img/platform_icons/<?= $game['platform'] ?>.png"></td>
+			<td style="text-align: center">
+			<img 
+				title="<?= getPlatformName($game['platform']) ?>"  class="platformicon" src="styles/<?= getConfigVar('style') ?>/img/platform_icons/<?= $game['platform'] ?>.png">
+			</td>
             <td><?= $game['desc'] ?></td>
-            <td style="text-align: center;"><img src="styles/<?php getConfigVar('style')?>/img/rating_icons/<?= $game['rating'] ?>.png" /></td>
+            <td class="rating-column">
+				<div class="rating-segment-<?= $game['rating']; ?>" data-rating="<?= $game['rating']; ?>">
+					<span class="rating-text"><?= $game['rating']; ?></span>
+				</div>
+			</td>
             <td style="text-align: center;"><?= $game['completed'] ? 'Yes' : 'No' ?></td>
             <td style="text-align: center;"><?= $game['speedrun'] ? 'Yes' : 'No' ?></td>
             <td><a href="<?= $game['vod'] ?>">WATCH</a></td>

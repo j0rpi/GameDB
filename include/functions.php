@@ -8,6 +8,15 @@
 //
 // --------------------------------------------------------
 
+function getPlatformName($short_prefix)
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $stmt = $db->prepare('SELECT "name" FROM "platforms" WHERE "short_prefix" = :short_prefix');
+    $stmt->bindValue(':short_prefix', $short_prefix, SQLITE3_TEXT); // Use SQLITE3_TEXT since short_prefix is likely text
+    $result = $stmt->execute();
+    $platform = $result->fetchArray(SQLITE3_ASSOC);
+    return $platform['name'] ?? 'Unknown'; // Return 'Unknown' if no name is found
+}
 
 // --------------------------------------------------------
 //
@@ -39,7 +48,22 @@ function displayGameCoverByID($gameID, $width)
     $cover = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     print_r($cover['cover']);
 }
-
+// --------------------------------------------------------
+//
+// Get IGDB ClientID and AccessToken for Coversearches
+// 
+// Usage: getIGDBVar(keyname) 
+//
+// --------------------------------------------------------
+function getIGDBVar($config_var) {
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $stmt = $db->prepare('SELECT "' . $config_var . '" FROM configuration');
+    $result = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    if ($result) {
+        return trim($result[$config_var]); // Trim whitespace, newlines, etc.
+    }
+    return null; // Return null if the value is not found
+}
 // --------------------------------------------------------
 //
 // Get configuration value from database
@@ -47,13 +71,14 @@ function displayGameCoverByID($gameID, $width)
 // Usage: getConfigVar(keyname) 
 //
 // --------------------------------------------------------
-function getConfigVar($config_var)
-{
+function getConfigVar($config_var) {
     $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-    $stmt = $db->prepare('SELECT "' . $config_var . '" FROM "configuration"');
-    $stmt->bindValue(':config_var', $config_var, SQLITE3_TEXT);
-    $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-    print $var[$config_var];
+    $stmt = $db->prepare('SELECT "' . $config_var . '" FROM configuration');
+    $result = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    if ($result) {
+        print( trim($result[$config_var]) ); // Trim whitespace, newlines, etc.
+    }
+    return null; // Return null if the value is not found
 }
 // --------------------------------------------------------
 //
@@ -86,7 +111,7 @@ function refreshIGDBKey($clientID, $clientSecret)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-        'client_id' => $clientId,
+        'client_id' => $clientID,
         'client_secret' => $clientSecret,
         'grant_type' => 'client_credentials'
     ]));
@@ -262,15 +287,15 @@ function changePassword($oldPassword, $newPassword, $confirmPassword) {
             } else {
                 // Finalize the result set if the password is incorrect
                 $result->finalize();
-                return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Old password is incorrect.</div>";
+                return "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ Old password is incorrect.</div>";
             }
         } else {
             // Return an error if the user was not found or if there was a database error
-            return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Could not fetch user. Please try to login again.</div>";
+            return "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ Could not fetch user. Please try to login again.</div>";
         }
     } catch (Exception $e) {
         // Handle any errors (e.g., database connection issues)
-        return "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>⛔️ Unknown error occured.</div>";
+        return "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ Unknown error occured.</div>";
     }
 }
 ?>
