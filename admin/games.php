@@ -78,7 +78,10 @@ $result = $db->query('SELECT * FROM games');
 
 
 ?>
-<?php $years = range(1900, strftime("%Y", time())); ?>
+<?php $years = range(
+    (int)getConfigVarInt('minSelectableYear'), 
+    (int)date("Y") 
+); ?>
 <?php $ratings = range(1, 10); ?>
 <!DOCTYPE html>
 <html lang="en">
