@@ -36,6 +36,28 @@ include('../version.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.catplat.css">
+	<style type="text/css">
+    #phpinfo {}
+    #phpinfo pre {}
+    #phpinfo a:link {}
+    #phpinfo a:hover {}
+    #phpinfo table {}
+    #phpinfo .center {}
+    #phpinfo .center table {}
+    #phpinfo .center th {}
+    #phpinfo td, th {}
+    #phpinfo h1 {}
+    #phpinfo h2 {}
+    #phpinfo .p {}
+    #phpinfo .e {}
+    #phpinfo .h {}
+    #phpinfo .v {}
+    #phpinfo .vr {}
+    #phpinfo img {}
+    #phpinfo hr {}
+	td #text {font-size: 36px;}
+    </style>
+
 </head>
 <body>
 <div class='bg-text'>
