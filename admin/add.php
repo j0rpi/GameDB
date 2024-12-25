@@ -44,7 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
-<?php $years = range(1960, strftime("%Y", time())); ?>
+<?php $years = range(
+    (int)getConfigVarInt('minSelectableYear'), 
+    (int)date("Y") 
+); ?>
 <?php $ratings = range(1, 10); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="desc" name="desc" required>
             
             <label for="vod">VOD</label>
-            <input type="text" id="vod" name="vod" required>
+            <input type="text" id="vod" name="vod" placeholder="Leave empty if no VOD ...">
 
             <label for="cover">Cover URL</label>
                 <input type="text" id="cover" name="cover" required>

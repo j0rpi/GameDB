@@ -13,6 +13,7 @@
 // --------------------------------------------------------
 $main_filter_searchBox = "Sök efter spel...";
 $main_filter_genre = "Genre";
+$main_filter_genre_odd = "Annorlunda Genres";
 $main_filter_year = "År?";
 $main_filter_platform = "Plattform";
 $main_filter_rating = "Betyg";
@@ -22,17 +23,25 @@ $main_filter_speedrun = "Speedrun?";
 $main_table_title = "Titel";
 $main_table_genre = "Genre";
 $main_table_year = "År";
-$main_table_platform = "?";
-$main_table_reveiw = "Recension";
+$main_table_platform = "Plattform";
+$main_table_review = "Recension";
 $main_table_rating = "Betyg";
 $main_table_completed = "Slutförd";
 $main_table_speedrun = "Speedrun";
-$main_table_vod = "KOLLA";
+$main_table_vod = "Kolla";
+$main_table_novod = "Nej";
+$main_table_yes = "Ja";
+$main_table_no = "Nej";
+$main_table_modalvod = "VOD";
+$main_table_vodlink = "Länk";
+$main_table_dateadded = "Detta spel lades till den";
 
 $main_admin_login = "Logga in som Admin";
 $main_admin_authed = "Inloggad som ";
 $main_admin_password = "Byt Lösenord";
 $main_admin_logout = "Logga Ut";
+
+$main_list_nogames = "Inga spel hittades...";
 
 // --------------------------------------------------------
 //

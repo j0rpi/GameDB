@@ -24,7 +24,6 @@ function getPlatformName($short_prefix)
     $platform = $result->fetchArray(SQLITE3_ASSOC);
     return $platform['name'] ?? 'Unknown'; // Return 'Unknown' if no name is found
 }
-
 // --------------------------------------------------------
 //
 // Get game title by game ID
@@ -40,7 +39,6 @@ function displayGameByID($gameID)
     $game = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     print_r($game['title']);
 }
-
 // --------------------------------------------------------
 //
 // Get game cover by game ID
@@ -102,7 +100,21 @@ function getConfigVarInt($config_var)
     $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     return($var[$config_var]);
 }
-
+// --------------------------------------------------------
+//
+// Get Language
+// 
+// Usage: getLanguage(keyname) 
+//
+// --------------------------------------------------------
+function getLanguage()
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $stmt = $db->prepare('SELECT "language" FROM "configuration"');
+    $result = $stmt->execute();
+    $var = $result->fetchArray(SQLITE3_ASSOC);
+    return $var['language'];
+}
 // --------------------------------------------------------
 //
 // Refresh IGDB access token
@@ -136,7 +148,6 @@ function refreshIGDBKey($clientID, $clientSecret)
         echo '<pre>' . print_r($data, true) . '</pre>';
     }
 }
-
 // --------------------------------------------------------
 //
 // Wipe the whole database
@@ -163,7 +174,6 @@ function wipeAll()
         }
     }
 }
-
 // --------------------------------------------------------
 //
 // Wipes categories from database
@@ -186,7 +196,6 @@ function wipeCats()
         }
     }
 }
-
 // --------------------------------------------------------
 //
 // Wipes platforms from database
@@ -209,7 +218,6 @@ function wipePlats()
         }
     }
 }
-
 // --------------------------------------------------------
 //
 // Wipes platforms from database
@@ -232,7 +240,6 @@ function wipeGames()
         }
     }
 }
-
 // --------------------------------------------------------
 //
 // Change password

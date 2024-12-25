@@ -1,3 +1,25 @@
+v0.42 - 2024-12-25
+_________________________________________
+
+[Additions]
+- Main index page is now fully localized. Some badly translated languages will be available
+  just for the heck of it
+
+- english.php language file fixed
+- getLanguage() added
+
+[Changes]
+- Made rating number bigger and more centered
+
+[Administrative]
+- Adding a game no longer requires an VOD link 
+- Disabled some menu entries in admin/index.php since they are not implemented yet
+
+Other notes: 
+
+Merry Christmas!
+
+
 v0.41 - 2024-12-19
 _________________________________________
 
@@ -21,7 +43,7 @@ _________________________________________
 Todo: Replace short_prefix with name in modal and title
 
 
-v0.31 - 2024-12-04
+v0.31 - 2024-12-15
 _________________________________________
 
 [Changes]

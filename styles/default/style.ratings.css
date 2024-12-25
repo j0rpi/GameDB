@@ -1,6 +1,5 @@
 .rating-segment-1, .rating-segment-2, .rating-segment-3 {
     position: relative;
-   position: relative;
     width: 51px;
     height: 51px;
     border-radius: 50%;
@@ -15,7 +14,6 @@
 }
 
 .rating-segment-4, .rating-segment-5, .rating-segment-6 {
-    position: relative;
     position: relative;
     width: 51px;
     height: 51px;
@@ -45,6 +43,13 @@
    
 }
 
+.rating-segment-10 {
+    background-image: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+    -webkit-box-shadow:0px 0px 10px 5px rgba(255,196,46,0.2);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(255,196,46,0.2);
+    box-shadow: 0px 0px 10px 5px rgba(255,196,46,0.2);
+}
+
 .rating-segment-1::before, .rating-segment-2::before, .rating-segment-3::before, .rating-segment-4::before, .rating-segment-5::before, .rating-segment-6::before, .rating-segment-7::before, .rating-segment-8::before, .rating-segment-9::before, .rating-segment-10::before {
     content: "";
     position: absolute;
@@ -60,7 +65,8 @@
     position: absolute;
     font-weight: bold;
     color: white;
-    font-size: 18px;
+    font-size: 22px;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
     z-index: 2;
+    margin-top: 5px;
 }

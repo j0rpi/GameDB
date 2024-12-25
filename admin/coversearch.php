@@ -3,7 +3,7 @@
 //
 // j0rpi_GameDB
 //
-// File: coversearch.php
+// File: admin/coversearch.php
 // Purpose: Provides IGDB cover search functionality.
 //
 // --------------------------------------------------------

@@ -3,8 +3,8 @@
 //
 // j0rpi_GameDB
 //
-// File: admin/index.php
-// Purpose: Main administrator page
+// File: admin/games.php
+// Purpose: Manage games
 //
 // --------------------------------------------------------
 

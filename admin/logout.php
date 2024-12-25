@@ -3,7 +3,7 @@
 //
 // j0rpi_GameDB
 //
-// File: index.php
+// File: admin/logout.php
 // Purpose: Kill session
 //
 // --------------------------------------------------------

@@ -30,6 +30,13 @@ include('include/functions.php');
 
 // --------------------------------------------------------
 //
+// Define Language 
+//
+// --------------------------------------------------------
+include('lang/' . getLanguage() . '.php');
+
+// --------------------------------------------------------
+//
 // Year Selector Min/Max
 //
 // --------------------------------------------------------
@@ -202,7 +209,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
                     <td style="text-align: center">${game.title}</td>
                     <td style="text-align: center">${game.genre}</td>
                     <td style="text-align: center">${game.year}</td>
-				<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
+					<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
                     <td style="text-align: center">${game.desc}</td>
                     <td class="rating-column">
 						<div class="rating-segment" data-rating="${game.rating}">
@@ -261,10 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-
-
-
-</script>
 </head>
 <body>
 <?php
@@ -281,11 +284,11 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php 
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) 
 {
-    echo '<div class="form-container"><a href="admin/index.php" class="add-game" style="float:right">Admin Login</a>';
+    echo '<div class="form-container"><a href="admin/index.php" class="add-game" style="float:right">' . $main_admin_login . '</a>';
 } 
 else 
 {
-    echo '<div class="form-container"><a href="admin/index.php" class="add-game" style="line-height: 18px; float:right">💎 Logged in as ' . $_SESSION['admin_username'] . '</a>';
+    echo '<div class="form-container"><a href="admin/index.php" class="add-game" style="line-height: 18px; float:right">💎 ' . $main_admin_authed . ' ' . $_SESSION['admin_username'] . '</a>';
 } 
 ?>
 
@@ -297,7 +300,7 @@ else
 // --------------------------------------------------------
 ?>
 <div class="search-box" style="margin-right: -20px;">
-    <input type="text" id="search" style="width: 350px;" oninput="searchGames()" placeholder="Search games...">
+    <input type="text" id="search" style="width: 350px;" oninput="searchGames()" placeholder="<?php echo $main_filter_searchBox; ?>">
 </div>
 <div class="filters" style="width: 700px">
 
@@ -309,7 +312,7 @@ else
 // --------------------------------------------------------
 ?>
     <select id="genre" onchange="searchGames()" style="width: 175px;">
-        <option value="">🎲 Genre</option>
+        <option value="">🎲 <?php echo $main_filter_genre; ?></option>
 		<?php 
 		
 		// Querystring for non-odd genres
@@ -336,7 +339,7 @@ else
 	    <?php while ($option = $cat_results->fetchArray(SQLITE3_ASSOC)): ?>
 			<option><?php echo $option['cat_name']; ?></option>
 		<?php endwhile; ?>
-			<option disabled>Other Genres ...</option>
+			<option disabled><?php echo $main_filter_genre_odd; ?></option>
 		<?php
 		// --------------------------------------------------------
 		//
@@ -356,13 +359,12 @@ else
 // --------------------------------------------------------
 ?>
 	<select id="year" name="year" onchange="searchGames()" style="width: 100px;">
-		<option value="">📆 Year?</option>
+		<option value="">📆 <?php echo $main_filter_year; ?></option>
 		<?php foreach ($yearss as $year) : ?>
 			<option value="<?php echo $year; ?>"><?php echo $year; ?></option>
 		<?php endforeach; ?>
 	</select>
 <?php
-
 // --------------------------------------------------------
 //
 // Fetch platform/systems from database
@@ -370,7 +372,7 @@ else
 // --------------------------------------------------------
 ?>
 	<select id="platform" name="platform" onchange="searchGames()" style="width: 200px;">
-	<option value="">🕹️ Platform</option>
+	<option value="">🕹️ <?php echo $main_filter_platform; ?></option>
 		<?php 
 		
 		// Querystring for platforms
@@ -400,7 +402,7 @@ else
 // --------------------------------------------------------
 ?>
 	<select id="rating" onchange="searchGames()">
-		<option value="">⭐ Rating</option>
+		<option value="">⭐ <?php echo $main_filter_rating; ?></option>
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -422,9 +424,9 @@ else
 // --------------------------------------------------------
 ?>
     <select id="completed" onchange="searchGames()" style="width: 135px;">
-        <option value="">✔️ Completed?</option>
-        <option value="1">Yes</option>
-        <option value="0">No</option>
+        <option value="">✔️ <?php echo $main_filter_completed; ?></option>
+        <option value="1"><?php echo $main_table_yes; ?></option>
+        <option value="0"><?php echo $main_table_no; ?></option>
     </select>
 <?php
 
@@ -435,9 +437,9 @@ else
 // --------------------------------------------------------
 ?>
     <select id="speedrun" onchange="searchGames()" style="width: 125px;">
-        <option value="">🏃🏻 Speedrun?</option>
-        <option value="1">Yes</option>
-        <option value="0">No</option>
+        <option value="">🏃🏻 <?php echo $main_filter_speedrun; ?></option>
+        <option value="1"><?php echo $main_table_yes; ?></option>
+        <option value="0"><?php echo $main_table_no; ?></option>
     </select>	
 </div> 
 <br>
@@ -459,14 +461,14 @@ else
 	?>
         <tr>
             <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">#</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 300px">Title</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">Genre</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">Year</th>
-			<th style="text-align: center; border-right: 1px solid #0080ff; width: 200px">Platform</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 500px">Review</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 50px">Rating</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">Completed</th>
-            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">Speedrun</th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 300px"><?php echo $main_table_title; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px"><?php echo $main_table_genre; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px"><?php echo $main_table_year; ?></th>
+			<th style="text-align: center; border-right: 1px solid #0080ff; width: 200px"><?php echo $main_table_platform; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 500px"><?php echo $main_table_review; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 50px"><?php echo $main_table_rating; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px"><?php echo $main_table_completed; ?></th>
+            <th style="text-align: center; border-right: 1px solid #0080ff; width: 100px"><?php echo $main_table_speedrun; ?></th>
             <th>VOD</th>
         </tr>
     </thead>
@@ -489,14 +491,37 @@ else
 				title="<?= getPlatformName($game['platform']) ?>"  class="platformicon" src="styles/<?= getConfigVar('style') ?>/img/platform_icons/<?= $game['platform'] ?>.png">
 			</td>
             <td><?= $game['desc'] ?></td>
+			<?php
+			// --------------------------------------------------------
+			//
+			// Fetch game rating, and set its data-rating value so
+			// we can make sure it gets the correct CSS class
+			//
+			// --------------------------------------------------------
+			?>
             <td class="rating-column">
 				<div class="rating-segment-<?= $game['rating']; ?>" data-rating="<?= $game['rating']; ?>">
 					<span class="rating-text"><?= $game['rating']; ?></span>
 				</div>
 			</td>
-            <td style="text-align: center;"><?= $game['completed'] ? 'Yes' : 'No' ?></td>
-            <td style="text-align: center;"><?= $game['speedrun'] ? 'Yes' : 'No' ?></td>
-            <td><a href="<?= $game['vod'] ?>">WATCH</a></td>
+            <td style="text-align: center;"><?= $game['completed'] ? $main_table_yes : $main_table_no ?></td>
+            <td style="text-align: center;"><?= $game['speedrun'] ? $main_table_yes : $main_table_no ?></td>
+
+			<?php
+			// --------------------------------------------------------
+			//
+			// If VOD is empty, dont make it a link
+			//
+			// --------------------------------------------------------
+			?>
+			<?php if ($game['vod'] == "") {
+            	echo "<td>" . $main_table_novod . "</td>";
+				
+			}
+			else {
+				echo "<td><a href='" . $game['vod'] . "'>" . $main_table_vod . "</a></td>";
+			}
+			?>
         </tr>
         <?php endwhile; ?>
 		<?php
@@ -508,7 +533,7 @@ else
 		?>
 		<?php $count = $db->querySingle("SELECT COUNT(*) as total from games"); ?>
         <?php if ($count == 0): ?>
-            <tr><td colspan="9"><br><center>😔 No games found.</center><br></td></tr>
+            <tr><td colspan="9"><br><center>😔 <?php echo $main_list_nogames; ?></center><br></td></tr>
         <?php endif; ?>
     </tbody>
 </table>
@@ -533,7 +558,7 @@ else
 ?>
 <div class="footerdivider">
 	<div class="footer-content">
-		<center><a href='https://github.com/j0rpi/GameDB' style='text-decoration: none; border-bottom: 1px dotted white;'>GameDB</a> made with ❤️ by j0rpi<br><span style="font-weight: 200; font-size: 12px;"><?php echo $version; ?></span></center> 
+		<center><a href='https://github.com/j0rpi/GameDB' style='text-decoration: none; border-bottom: 1px dotted white;'>GameDB</a> <?php echo $footer; ?><br><span style="font-weight: 200; font-size: 12px;"><?php echo $version; ?></span></center> 
 	</div>
 </div>
 </div>
@@ -554,20 +579,20 @@ else
 					<td style="width: 600px; border-bottom: none !important;">
 					<img id="modalCover" src="" alt="Cover" style="width:128px; margin-top: 46px;">
 					<h2 id="modalTitle"></h2>
-					<p><strong>Genre:</strong> <span id="modalGenre" style="font-weight: 300;"></span>
-					<p><strong>Platform:</strong> <span id="modalPlatform"></span></p>
-					<p><strong>Rating:</strong> <span id="modalRating"></span></p>
-					<p><strong>Completed:</strong> <span id="modalCompleted"></span></p>
-					<p><strong>Speedrun:</strong> <span id="modalSpeedrun"></span></p>
-					<p><strong>VOD:</strong> <a id="modalVOD" href="" target="_blank">Watch</a></p>
+					<p><strong><?php echo $main_table_genre; ?>: </strong> <span id="modalGenre" style="font-weight: 300;"></span>
+					<p><strong><?php echo $main_table_platform; ?>: </strong> <span id="modalPlatform"></span></p>
+					<p><strong><?php echo $main_table_rating; ?>: </strong> <span id="modalRating"></span></p>
+					<p><strong><?php echo $main_table_completed; ?>: </strong> <span id="modalCompleted"></span></p>
+					<p><strong><?php echo $main_table_speedrun; ?>: </strong> <span id="modalSpeedrun"></span></p>
+					<p><strong><?php echo $main_table_modalvod; ?>: </strong> <a id="modalVOD" href="" target="_blank"><?php echo $main_table_vodlink; ?></a></p>
 					</td>
 					<td style="border-bottom: none !important;">
-					<center><h2>Review</h2></center>
+					<center><h2><?php echo $main_table_review; ?></h2></center>
 					<textarea id="modalDesc" disabled></textarea>
 					</td>
 				</tr></thead>
 			</table>
-			<center>This game was added on <strong>2024-06-30</strong>
+			<center><?php echo $main_table_dateadded; ?> <strong>2024-06-30</strong>
         </div>
     </div>
 </div>
