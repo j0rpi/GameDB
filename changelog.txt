@@ -1,3 +1,16 @@
+v0.44 - 2024-12-31
+_________________________________________
+
+[Additions]
+- Norweigan, Dutch, Finnish and Danish now have translated files (be aware: might contain alot of grammar errors)
+
+[Changes]
+- Gave default style a nicer refreshing look
+
+[Fixes]
+- Fixed error bar being half its intended height
+
+
 v0.43 - 2024-12-30
 _________________________________________
 

@@ -110,7 +110,7 @@ $result = $db->query('SELECT * FROM games');
 	// --------------------------------------------------------
 	?>
         <table>
-		<span class="button-row-text"><a href="index.php">Dashboard</a> > Manage Games</span><div class="button-row"><a href="add.php" class="add-game" style="margin-left: 25x;">🕹️ Add New Game</a></div>
+		<span class="button-row-text"><a href="index.php">Admin Dashboard</a> > Manage Games</span><div class="button-row"><a href="add.php" class="add-game" style="margin-left: 25x;">🕹️ Add New Game</a></div>
             <thead>
                 <tr style="font-size: 14px;">
 					<th style="text-align: center; border-right: 1px solid #0080ff; width: 100px">#</th>

@@ -83,7 +83,7 @@ body, html {
         .search-box input, .filters select {
             width: 250px;
             margin: 0 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #666666;
             border-radius: 4px;
 			font-family: Bahnschrift;
         }
@@ -104,7 +104,7 @@ body, html {
 			padding: 0px 2px 0px 42px;
 			box-sizing: border-box;
 			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.1); 
+			background-color: rgba(0,0,0, 0.2); 
 			backdrop-filter: blur(10px)
 			height: 125px;
 		}
@@ -134,15 +134,24 @@ body, html {
             flex-direction: column;
 			
         }
-        .form-container select {
+       
+        .form-container option, select {
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
 			font-family: Bahnschrift;
-			background-color: rgb(0,0,0); 
-			background-color: rgba(0,0,0, 0.1); 			
-			color:white;
+			background-color: rgba(0,0,0, 0.2);
+			color:#fff;
+			width: 100%
+        }
+		.form-container option:focus, select:focus {
+          
+            
+            border: 1px solid #ccc;
+            border-radius: 4px;
+			font-family: Bahnschrift;
+			background-color: rgba(0,0,0,0.9);
         }
         .form-container button {
             padding: 10px;
@@ -198,14 +207,14 @@ body, html {
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.6);
 			backdrop-filter: blur(15px);
             justify-content: center;
             align-items: center;
         }
         .modal-content {
             padding: 20px;
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: rgba(0, 0, 0, 0.4);
             width: 900px;
 			color: white;
 			border: 1px solid #333333;
@@ -224,6 +233,9 @@ body, html {
 		.modalCloseButton:hover{
 			color: #0080ff;
 			cursor: pointer;
+		}
+		.modal-content textarea{
+			border: 1px solid #333333;
 		}
 		td {
 			border-bottom: 1px solid rgba(255,255,255,0.1);
