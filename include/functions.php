@@ -24,6 +24,7 @@ function getPlatformName($short_prefix)
     $platform = $result->fetchArray(SQLITE3_ASSOC);
     return $platform['name'] ?? 'Unknown'; // Return 'Unknown' if no name is found
 }
+
 // --------------------------------------------------------
 //
 // Get game title by game ID
@@ -39,6 +40,7 @@ function displayGameByID($gameID)
     $game = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     print_r($game['title']);
 }
+
 // --------------------------------------------------------
 //
 // Get game cover by game ID
@@ -53,6 +55,7 @@ function displayGameCoverByID($gameID, $width)
     $cover = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     print_r($cover['cover']);
 }
+
 // --------------------------------------------------------
 //
 // Get IGDB ClientID and AccessToken for Coversearches
@@ -69,6 +72,7 @@ function getIGDBVar($config_var) {
     }
     return null; // Return null if the value is not found
 }
+
 // --------------------------------------------------------
 //
 // Get configuration value from database
@@ -85,6 +89,7 @@ function getConfigVar($config_var) {
     }
     return null; // Return null if the value is not found
 }
+
 // --------------------------------------------------------
 //
 // Get configuration value from database
@@ -100,6 +105,7 @@ function getConfigVarInt($config_var)
     $var = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
     return($var[$config_var]);
 }
+
 // --------------------------------------------------------
 //
 // Get Language
@@ -115,6 +121,71 @@ function getLanguage()
     $var = $result->fetchArray(SQLITE3_ASSOC);
     return $var['language'];
 }
+
+// --------------------------------------------------------
+//
+// Get Language Options - Scans for language files
+// and adds them as <option></option> tag for config pages
+// 
+// Usage: getLanguageOptions()
+//
+// --------------------------------------------------------
+function getLanguageOptions()
+{
+    $langDir = '../lang/';
+    $files = scandir($langDir);
+    $options = '';
+
+    foreach ($files as $file) {
+        if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+            // Include the language file to extract variables
+            include $langDir . $file;
+
+            // Ensure $language and $flag_emoji are defined
+            if (isset($language) && isset($flag_emoji)) {
+                $options .= '<option value="' . htmlspecialchars(basename($file, '.php')) . '">'
+                          . $flag_emoji . ' ' . htmlspecialchars($language)
+                          . '</option>';
+            }
+        }
+    }
+
+    return $options;
+}
+
+// --------------------------------------------------------
+//
+// Get Style Options - Scans for styles in /styles folder
+// and returns them as <option></option> tag for config pages
+// 
+// Usage: getStyleOptions()
+//
+// --------------------------------------------------------
+function getStyleOptions()
+{
+    $stylesDir = '../styles/';
+    $folders = array_filter(glob($stylesDir . '*'), 'is_dir'); // Get subfolders
+    $options = '';
+
+    foreach ($folders as $folder) {
+        $configFile = $folder . '/style_config.php';
+
+        if (file_exists($configFile)) {
+            // Include the config file to extract variables
+            include $configFile;
+
+            // Ensure $name and $dbname are defined
+            if (isset($name) && isset($dbname)) {
+                $options .= '<option value="' . htmlspecialchars($dbname) . '">'
+                          . htmlspecialchars($name)
+                          . '</option>';
+            }
+        }
+    }
+
+    return $options;
+}
+
 // --------------------------------------------------------
 //
 // Refresh IGDB access token
@@ -148,6 +219,7 @@ function refreshIGDBKey($clientID, $clientSecret)
         echo '<pre>' . print_r($data, true) . '</pre>';
     }
 }
+
 // --------------------------------------------------------
 //
 // Wipe the whole database
@@ -174,6 +246,7 @@ function wipeAll()
         }
     }
 }
+
 // --------------------------------------------------------
 //
 // Wipes categories from database
@@ -196,6 +269,7 @@ function wipeCats()
         }
     }
 }
+
 // --------------------------------------------------------
 //
 // Wipes platforms from database
@@ -218,6 +292,7 @@ function wipePlats()
         }
     }
 }
+
 // --------------------------------------------------------
 //
 // Wipes platforms from database
@@ -240,6 +315,7 @@ function wipeGames()
         }
     }
 }
+
 // --------------------------------------------------------
 //
 // Change password

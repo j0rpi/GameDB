@@ -9,6 +9,9 @@
 //
 // --------------------------------------------------------
 
+// Define functions.php
+include('../include/functions.php');
+
 //
 // Define post variable so PHP won't complain about a non-existant variable
 //
@@ -324,10 +327,9 @@ function doInstall()
 				</div>
 				<div class='groupBox2'>
 				<h2>GameDB Settings</h2>
-						<label for='admin_username'>Language</label><br>
+				<label for='language'>Language</label><br>
 						<select name="language">
-							<option value="english">🇬🇧 English</option>
-							<option value="swedish">🇸🇪 Swedish</option>
+							<?php echo getLanguageOptions(); ?>
 						</select><br>
 
 						<label for='admin_username'>Admin Username</label><br>
@@ -336,8 +338,10 @@ function doInstall()
 						<label for='admin_password'>Admin Password</label><br>
 						<input type='password' id='admin_password' name='admin_password' placeholder='' autocomplete='new-password'><br><br>
 
-						<label for='style'>Style</label><br>
-						<input type='text' id='style' name='style' placeholder='' value='default'><br><br>
+						<label for="style-select">Select Style</label>
+    					<select id="style-select" name="style">
+        					<?php echo getStyleOptions(); ?>
+    					</select><br><br>
 
 						<label for='headerTitle'>Header Title</label><br>
 						<input type='text' id='headerTitle' name='headerTitle' placeholder=''><br><br>

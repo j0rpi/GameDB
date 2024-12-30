@@ -87,14 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$result = $db->query('SELECT * FROM configuration');
 		$config = $result->fetchArray(SQLITE3_ASSOC);
 	?>
-	<label for='admin_username'>Language</label><br>
+	<label for='language'>Language</label><br>
 	<select name="language">
-		<option value="english">🇬🇧 English</option>
-		<option value="swedish">🇸🇪 Swedish</option>
+		<?php echo getLanguageOptions(); ?>
 	</select>
 	
-	<label for='style'>Style</label>
-	<input type='text' id='style' name='style' value='<?php echo $config["style"]; ?>' required>
+	<label for="style-select">Select Style</label>
+    <select id="style-select" name="style">
+        <?php echo getStyleOptions(); ?>
+    </select>
 
 	<label for='headerTitle'>Header Title</label>
     <input type='text' id='headerTitle' name='headerTitle' value='<?php echo $config["headerTitle"]; ?>' required>
@@ -117,9 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<option value='0'>0</option>
 		<option value='1'>1</option>
 	</select>
-
-	<label for='vodLinkText'>VOD Link Text</label>
-    <input type='text' id='vodLinkText' name='vodLinkText' value='<?php echo $config["vodLinkText"]; ?>' required>
  
     <label for='IGDB_clientID'>IGDB Client ID</label>
     <input type='text' id='IGDB_clientID' name='IGDB_clientID' value='<?php echo $config["IGDB_clientID"]; ?>' required>
