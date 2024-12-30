@@ -12,6 +12,9 @@ _________________________________________
 - Removed default platform icons as they are not mine and they are different dimensions
 - Removed other un-used files
 
+[Fixes]
+- Fixed index page not showing unknown.png when platform icons are not found
+
 
 v0.42 - 2024-12-25
 _________________________________________
