@@ -129,4 +129,3 @@ $IGDB_Footer = "Powered by IGDB API";
 // --------------------------------------------------------
 $footer = "created with ❤️ by j0rpi";
 ?>
-?>

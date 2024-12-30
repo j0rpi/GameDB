@@ -179,9 +179,8 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/<?php getConfigVar('style') ?>/style.main.css">
 	<link rel="stylesheet" href="styles/<?php getConfigVar('style') ?>/style.ratings.css">
-	<script>
+	<script>	
 <?php
-
 // --------------------------------------------------------
 //
 // Search games
@@ -270,13 +269,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </head>
 <body>
-<?php
-// --------------------------------------------------------
-//
-// Header
-//
-// --------------------------------------------------------
-?>
 <div class="bg-text">
 <div class="logodiv">
     <img src="styles/<?php getConfigVar('style')?>/img/logo.png" /> 
@@ -492,8 +484,7 @@ else
 					echo "<img title='" . $game['platform'] . "' class='platformicon' src='styles/" . $style . "/img/platform_icons/" . $game['platform']  . ".png' />";
 				} else {
 					echo "<img title='" . $game['platform']  . "' class='platformicon' src='styles/" . $style . "/img/platform_icons/unknown.png' />";
-				}
-				?>
+				}?>
 			</td>
             <td><?= $game['desc'] ?></td>
 			<?php

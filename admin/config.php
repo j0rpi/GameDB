@@ -43,16 +43,47 @@ $db = new SQLite3('../games.db');
 //
 // --------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['update_config'])) {
-        $stmt = $db->prepare('DELETE FROM categories WHERE id = :id');
-        $stmt->bindValue(':id', $_POST['delete_id'], SQLITE3_INTEGER);
-        $stmt->execute();
-		$status = "Configuration was successfully saved to the database!";
-		echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
-    }else {
-		$status = "There was an error trying to update the configuration!";
-		echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "</div>";
-	}
+    try {
+        // Begin the database transaction
+        $db->exec('BEGIN TRANSACTION');
+
+        // Prepare a query to update configuration values
+        $query = 'UPDATE configuration SET ';
+        $updateFields = [];
+
+        // Loop through the POST data and prepare dynamic SQL for each field
+        foreach ($_POST as $field => $value) {
+            // Skip special POST fields like hidden or non-config fields
+            if ($field === 'update_config') continue;
+
+            // Sanitize input values
+            $sanitizedField = SQLite3::escapeString($field);
+            $sanitizedValue = SQLite3::escapeString($value);
+
+            // Add the sanitized field and value to the query
+            $updateFields[] = "\"$sanitizedField\" = '$sanitizedValue'";
+        }
+
+        // Build the final SQL query
+        $query .= implode(", ", $updateFields);
+
+        // Execute the query
+        $db->exec($query);
+
+        // Commit the transaction
+        $db->exec('COMMIT');
+
+        // Success message
+        $status = "Configuration was successfully saved to the database!";
+        echo "<div class='errorbar' style='background-color: darkgreen;'><span style='margin-bottom: 2px'>✔️ " . $status . "</div>";
+    } catch (Exception $e) {
+        // Roll back the transaction in case of an error
+        $db->exec('ROLLBACK');
+
+        // Error message
+        $status = "There was an error trying to update the configuration: " . $e->getMessage();
+        echo "<div class='errorbar' style='background-color: darkred;'><span style='margin-bottom: 2px'>⛔️ " . $status . "<br><br></div>";
+    }
 }
 // --------------------------------------------------------
 //
