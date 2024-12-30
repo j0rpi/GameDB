@@ -1,3 +1,18 @@
+v0.43 - 2024-12-30
+_________________________________________
+
+[Additions]
+- Language files are now parsed in install script and configuration page.
+- Styles are now parsed in install script and configuration page
+- Added empty language files for Norweigan, Danish, Dutch, Finnish
+- Added getLanguageOptions()
+- Added getStyleOptions()
+
+[Changes]
+- Removed default platform icons as they are not mine and they are different dimensions
+- Removed other un-used files
+
+
 v0.42 - 2024-12-25
 _________________________________________
 
