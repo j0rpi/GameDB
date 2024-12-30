@@ -487,8 +487,13 @@ else
             <td style="text-align: center"><?= $game['genre'] ?></td>
 			<td style="text-align: center"><?= $game['year'] ?></td>
 			<td style="text-align: center">
-			<img 
-				title="<?= getPlatformName($game['platform']) ?>"  class="platformicon" src="styles/<?= getConfigVar('style') ?>/img/platform_icons/<?= $game['platform'] ?>.png">
+				<?php				
+				if (file_exists('styles/' . $style . '/img/platform_icons/' . $game['platform'] . '.png')) {
+					echo "<img title='" . $game['platform'] . "' class='platformicon' src='styles/" . $style . "/img/platform_icons/" . $game['platform']  . ".png' />";
+				} else {
+					echo "<img title='" . $game['platform']  . "' class='platformicon' src='styles/" . $style . "/img/platform_icons/unknown.png' />";
+				}
+				?>
 			</td>
             <td><?= $game['desc'] ?></td>
 			<?php
