@@ -19,11 +19,13 @@ GameDB uses PHP and SQLite3.
 - Platform system
 - Administration system
 - Speedrun.com / Splits.IO integration (Not yet implemented)
+- Multi-Language Support
+- Theme Support
 
 ... and more to come i guess.
 
 # Requirements
-- PHP
+- PHP with SQLite3 Module Enabled
 
 # Clean Install 
 1. [How to obtain an access token for IGDB API using Twitch **Client ID** and **Client Secret**](https://api-docs.igdb.com/#getting-started)
