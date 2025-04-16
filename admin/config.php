@@ -97,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard :: GameDB Configuration</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.admin.css">
 </head>
 <body>
@@ -119,8 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$config = $result->fetchArray(SQLITE3_ASSOC);
 	?>
 	<label for='language'>Language</label><br>
+    
 	<select name="language">
-		<?php echo getLanguageOptions(); ?>
+        <?php echo getLanguage(); ?>
+        <?php echo getLanguageOptions(); ?>
 	</select>
 	
 	<label for="style-select">Select Style</label>
@@ -130,6 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	<label for='headerTitle'>Header Title</label>
     <input type='text' id='headerTitle' name='headerTitle' value='<?php echo $config["headerTitle"]; ?>' required>
+
+    <label for='dateFormat'>Date Format <a href="https://www.php.net/manual/en/function.date.php">[Guide]</a></label><br>
+    <input type='text' id='dateFormat' name='dateFormat' value='<?php echo $config["dateFormat"]; ?>' required><br><br>
 
 	<label for='listMax'>Max Entrys Per List</label>
     <input type='number' id='listMax' name='listMax' min='1' max='50' value='<?php echo $config["listMax"]; ?>' required>

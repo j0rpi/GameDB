@@ -62,6 +62,7 @@ $completed = isset($_GET['completed']) ? $_GET['completed'] : '';
 $year = isset($_GET['year']) ? $_GET['year'] : '';
 $speedrun = isset($_GET['speedrun']) ? $_GET['speedrun'] : '';
 $platform = isset($_GET['platform']) ? $_GET['platform'] : '';
+$dateAdded = isset($_GET['dateAdded']) ? $_GET['dateAdded'] : '';
 // --------------------------------------------------------
 //
 // Set total number of items per page
@@ -196,6 +197,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
 	const rating = document.getElementById('rating').value;
 	const platform = document.getElementById('platform').value;
 
+
     fetch(`search.php?q=${query}&genre=${genre}&completed=${completed}&speedrun=${speedrun}&year=${year}&rating=${rating}&platform=${platform}`)
         .then(response => response.json())
         .then(data => {
@@ -208,10 +210,11 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
                     <td style="text-align: center">${game.title}</td>
                     <td style="text-align: center">${game.genre}</td>
                     <td style="text-align: center">${game.year}</td>
+					
 					<td style="text-align: center"><img title="${game.platform}" class="platformicon" src="styles/<?php getConfigVar("style") ?>/img/platform_icons/${game.platform}.png" /></td>
                     <td style="text-align: center">${game.desc}</td>
                     <td class="rating-column">
-						<div class="rating-segment" data-rating="${game.rating}">
+						<div class="rating-segment-${game.rating}" data-rating="${game.rating}">
 							<span class="rating-text">${game.rating}</span>
 						</div>
 					</td>
@@ -245,6 +248,7 @@ $total_count = $count_result->fetchArray(SQLITE3_ASSOC)['count'];
             document.getElementById('modalSpeedrun').innerText = game.completed ? '<?php echo $main_table_yes; ?>' : '<?php echo $main_table_no; ?>';
 			document.getElementById('modalDesc').innerText = game.desc;
 			document.getElementById('modalPlatform').innerText = game.platform;
+			document.getElementById('modalDateAdded').innerText = game.dateAdded;
 			document.title = "GameDB :: " + game.title + " (" + game.platform + ")";
             
             document.getElementById('gameModal').style.display = 'flex';
@@ -588,7 +592,7 @@ else
 					</td>
 				</tr></thead>
 			</table>
-			<center><?php echo $main_table_dateadded; ?> <strong>2024-06-30</strong>
+			<center><?php echo $main_table_dateadded; ?> <strong><span id="modalDateAdded"></span></strong>
         </div>
     </div>
 </div>

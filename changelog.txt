@@ -1,3 +1,33 @@
+
+v0.46 - 2025-04-17
+_________________________________________
+
+[Additions]
+- Added dateFormat column in database
+- Added Date Format to config page
+
+[Fixes]
+- Config page now displays current set language instead of listing all available languages
+- Resized changelog container
+- Favicon now displays on all pages including admin dashboard
+
+Note: Date Format specifies what time/date format to use when adding games, which will also be displayed
+throughout the page. Refer to https://www.php.net/manual/en/function.date.php how to specify time/date
+
+
+v0.45 - 2025-04-15
+_________________________________________
+
+[Additions]
+- Install script will now create another column 'dateAdded'
+- Adding a game will now use the current date and show it's added date on the index
+- Modal will now display the date when game was added
+- Added Changelog to Admin Dashboard
+
+[Changes]
+- Added sub-prefixes for each page in Document.Title
+
+
 v0.44 - 2024-12-31
 _________________________________________
 

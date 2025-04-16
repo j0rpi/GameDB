@@ -94,7 +94,8 @@ function doInstall()
 		genre TEXT,
 		completed INTEGER,
 		speedrun INTEGER,
-		platform TEXT
+		platform TEXT,
+		dateAdded TEXT
 	)');
 
 	// Create config table
@@ -109,7 +110,8 @@ function doInstall()
 		IGDB_clientID TEXT,
 		IGDB_clientSecret TEXT,
 		IGDB_accessToken TEXT,
-		language TEXT
+		language TEXT,
+		dateFormat TEXT
 	)');
 
 	// Create admins table
@@ -137,7 +139,7 @@ function doInstall()
 	$db->exec("INSERT INTO admins (username, password) VALUES ('" . $_POST['admin_username'] . "', '" . password_hash($_POST['admin_password'], PASSWORD_DEFAULT) . "')");
 
 	// Create default config
-	$db->exec("INSERT INTO configuration (style, headerTitle, listMax, minSelectableYear, useRatingIcons, usePlatformIcons, vodLinkText, IGDB_clientID, IGDB_clientSecret, IGDB_accessToken, language) VALUES ('" . $_POST['style'] . "','" .  $_POST['headerTitle'] . "','" .  $_POST['listMax'] . "','" . $_POST['minSelectableYear'] . "','" . $_POST['useRatingIcons'] . "','" . $_POST['usePlatformIcons'] . "','" . $_POST['vodLinkText'] . "','" . $_POST['id'] . "','" . $_POST['secret'] . "','" .  $_POST['accessToken'] . "', '" . $_POST['language'] . "')");
+	$db->exec("INSERT INTO configuration (style, headerTitle, listMax, minSelectableYear, useRatingIcons, usePlatformIcons, vodLinkText, IGDB_clientID, IGDB_clientSecret, IGDB_accessToken, language, dateFormat) VALUES ('" . $_POST['style'] . "','" .  $_POST['headerTitle'] . "','" .  $_POST['listMax'] . "','" . $_POST['minSelectableYear'] . "','" . $_POST['useRatingIcons'] . "','" . $_POST['usePlatformIcons'] . "','" . $_POST['vodLinkText'] . "','" . $_POST['id'] . "','" . $_POST['secret'] . "','" .  $_POST['accessToken'] . "', '" . $_POST['language'] . "','". $_POST['dateFormat'] . "')");
 
 	// Finally when finished, redirect to admin Page
 	header("Location: ../admin/login.php");
@@ -345,6 +347,9 @@ function doInstall()
 
 						<label for='headerTitle'>Header Title</label><br>
 						<input type='text' id='headerTitle' name='headerTitle' placeholder=''><br><br>
+
+						<label for='dateFormat'>Date Format <a href="https://www.php.net/manual/en/function.date.php">[Guide]</label><br>
+						<input type='text' id='headerTitle' name='headerTitle' placeholder='' required>Y-m-d<br><br>
 
 						<label for='listMax'>Max Games Per Page</label><br>
 						<input type='text' id='listMax' name='listMax' placeholder='Max games per page' value='10'><br><br>

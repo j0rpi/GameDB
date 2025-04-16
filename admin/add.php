@@ -27,7 +27,7 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = new SQLite3('../games.db');
-    $stmt = $db->prepare('INSERT INTO games (title, year, desc, rating, vod, cover, genre, completed, speedrun, platform) VALUES (:title, :year, :desc, :rating, :vod, :cover, :genre, :completed, :speedrun, :platform)');
+    $stmt = $db->prepare('INSERT INTO games (title, year, desc, rating, vod, cover, genre, completed, speedrun, platform, dateAdded) VALUES (:title, :year, :desc, :rating, :vod, :cover, :genre, :completed, :speedrun, :platform, :dateAdded)');
     $stmt->bindValue(':title', $_POST['title'], SQLITE3_TEXT);
     $stmt->bindValue(':rating', $_POST['rating'], SQLITE3_FLOAT);
 	$stmt->bindValue(':year', $_POST['year'], SQLITE3_TEXT);
@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':completed', $_POST['completed'], SQLITE3_INTEGER);
     $stmt->bindValue(':speedrun', $_POST['speedrun'], SQLITE3_INTEGER);
 	$stmt->bindValue(':platform', $_POST['platform'], SQLITE3_TEXT);
+    $stmt->bindValue(':dateAdded', $_POST['dateAdded'], SQLITE3_TEXT);
     $stmt->execute();
 
     header('Location: ../');
@@ -54,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Game</title>
+    <title>Admin Dashboard :: Add Game</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.catplat.css">
 </head>
 <body>
@@ -166,6 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="1">Yes</option>
             </select>
             
+            <label for="dateAdded">Date Added</label>
+            <input type="text" id="dateAdded" name="dateAdded" value="<?php echo date("Y-m-d"); ?>">
 			
 			
             <button type="submit">✔️ Add Game</button>

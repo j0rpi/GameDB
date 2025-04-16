@@ -13,6 +13,7 @@ body, html {
 			box-sizing: border-box;
 			
 		}
+		
         table {
             width: 100%;
             border-collapse: collapse;
@@ -166,7 +167,27 @@ body, html {
 
 			color:white;
 		}
-		
+		.textareacl{
+			font-family: Bahnschrift;
+			font-size: 14px;
+			width: 924px;
+  			height: 700px;
+			background-color: rgb(0,0,0); 
+			background-color: rgba(0,0,0, 0.0); 
+			border: none;
+			color:rgb(255, 255, 255);
+		}
+		textareacl::-webkit-scrollbar-track {
+			background: rgba(255, 255, 255, 0.1);
+		}
+		textareacl::-webkit-scrollbar-thumb {
+			background: rgba(0, 0, 0, 0.4); 
+		}
+		textareacl::-webkit-scrollbar {
+			width: 6px; 
+			height: 12px; 
+			background: #0080ff;
+		}
 		th:first-child{
 		border-radius: 8px 0px 0px 8px;
 		}

@@ -87,7 +87,9 @@ function getConfigVar($config_var) {
     if ($result) {
         print( trim($result[$config_var]) ); // Trim whitespace, newlines, etc.
     }
-    return null; // Return null if the value is not found
+    else{
+        return null;
+    }
 }
 
 // --------------------------------------------------------
@@ -132,26 +134,30 @@ function getLanguage()
 // --------------------------------------------------------
 function getLanguageOptions()
 {
-    $langDir = '../lang/';
-    $files = scandir($langDir);
-    $options = '';
+    $langDir     = '../lang/';
+    $files       = scandir($langDir);
+    $currentCode = getLanguage();  // now really returns "english"
+    $options     = '';
 
     foreach ($files as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-            // Include the language file to extract variables
-            include $langDir . $file;
-
-            // Ensure $language and $flag_emoji are defined
-            if (isset($language) && isset($flag_emoji)) {
-                $options .= '<option value="' . htmlspecialchars(basename($file, '.php')) . '">'
-                          . $flag_emoji . ' ' . htmlspecialchars($language)
-                          . '</option>';
-            }
+        if (pathinfo($file, PATHINFO_EXTENSION) !== 'php') {
+            continue;
         }
+        $code = basename($file, '.php');      // e.g. "english"
+        include $langDir . $file;             // defines $language & $flag_emoji
+
+        if (isset($language, $flag_emoji)) {
+            $sel = ($code === $currentCode) ? ' selected' : '';
+            $options .= '<option value="' . htmlspecialchars($code) . '"' . $sel . '>'
+                      . $flag_emoji . ' ' . htmlspecialchars($language)
+                      . '</option>';
+        }
+        unset($language, $flag_emoji);
     }
 
     return $options;
 }
+
 
 // --------------------------------------------------------
 //

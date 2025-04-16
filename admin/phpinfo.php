@@ -34,7 +34,8 @@ include('../version.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard :: PHP Info</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.catplat.css">
 	<style type="text/css">
     #phpinfo {}

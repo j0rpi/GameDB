@@ -3,8 +3,8 @@
 //
 // j0rpi_GameDB
 //
-// File: admin/index.php
-// Purpose: Main administrator page
+// File: admin/changelog.php
+// Purpose: Changelog
 //
 // --------------------------------------------------------
 
@@ -35,8 +35,8 @@ include('../include/functions.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard :: Index</title>
-	<link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <title>Admin Dashboard :: Changelog</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/<?php getConfigVar('style') ?>/style.admin.css">
 </head>
 <body>
@@ -50,26 +50,19 @@ include('../include/functions.php');
 ?>
     <h1>Admin Dashboard<span style="float:right; font-size: 16px; font-weight: normal;">Logged in As <strong><?php echo $_SESSION['admin_username']; ?></strong></span><br><span style="float:left; font-size: 12px; font-weight: normal;"><a href="../">Return to Index</a></span><span style="float:left; font-size: 12px; font-weight: normal;"></span><span style="float:right; font-size: 12px; font-weight: normal;"><a href="password.php" style="">Change Password</a> | <a href="logout.php" style="">Logout</a></h1><br>
 	<div class="form-container">
-		<!--<h2>Management</h2>
-		<div class="thindivider"></div>
-		👪 <a href="users">Add/Remove Users</a><br><br><br>-->
-		<h2>Games</h2>
-		<div class="thindivider"></div>
-		🕹️ <a href="games.php">Manage Games</a><br>
-		🎲 <a href="categories.php">Manage Genres</a><br>
-		🎮 <a href="platforms.php">Manage Platforms</a><br><br><br>
-		<h2>Administrative</h2>
-		<div class="thindivider"></div>
-		🔑️ <a href="password.php">Change Password</a><br>
-		🛠️ <a href="config.php">GameDB Configuration</a><br>
-		📝 <a href="changelog.php">Changelog</a><br>
-		<!--📸 <a href="igdb_token.php">Generate IGDB Access Token</a><br>-->
-		<!--♻️ <a href="update.php">Check for GameDB Updates</a><br>-->
-		⚙️ <a href="phpinfo.php">PHP Info</a><br><br><br>
-		<h2>Database</h2>
-		<div class="thindivider"></div>
-		<!--💿 <a href="backup.php">Import/Export/Backup Database</a><br>-->
-		☢️ <a href="nuke.php">Wipe Database </a><br><br>
+    <span class="button-row-text"><a href="index.php">Admin Dashboard</a> > Changelog</span><br>
+    <br><div class="thindivider"></div><br>
+        <textarea class="textareacl">
+	<?php
+        $file="../changelog.txt";
+        $doc=file_get_contents($file);
+    
+        $line=explode("\n",$doc);
+        foreach($line as $newline){
+        echo $newline;
+        }
+    ?>
+    </textarea>
 	</div>
 <?php
 // --------------------------------------------------------
