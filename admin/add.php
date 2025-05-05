@@ -20,6 +20,8 @@ $db = new SQLite3('../games.db');
 include('../include/config.php');
 include('../include/functions.php');
 
+$timeFormat = getTimeFormat();
+
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
     header('Location: ../admin/login.php');
     exit;
@@ -64,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="bg-text" style=" padding-top: 50px">
     <div class="form-container" style="text-align: left;;">
        
-        <form method="POST">
+        <form method="POST">           
             <label for="title">Title</label>
             <input type="text" id="title" name="title" required>
 			
@@ -169,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
             
             <label for="dateAdded">Date Added</label>
-            <input type="text" id="dateAdded" name="dateAdded" value="<?php echo date("Y-m-d"); ?>">
+            <input type="text" id="dateAdded" name="dateAdded" value="<?php echo $timeFormat ?>">
 			
 			
             <button type="submit">✔️ Add Game</button>

@@ -1,10 +1,18 @@
 
+v0.47 - 2025-04-17
+_________________________________________
+
+[Additions]
+- Added getTimeFormat()
+
+
 v0.46 - 2025-04-17
 _________________________________________
 
 [Additions]
 - Added dateFormat column in database
 - Added Date Format to config page
+- Added getTimeFormat()
 
 [Fixes]
 - Config page now displays current set language instead of listing all available languages

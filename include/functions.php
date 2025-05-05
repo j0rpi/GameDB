@@ -126,6 +126,22 @@ function getLanguage()
 
 // --------------------------------------------------------
 //
+// Get Time Format
+// 
+// Usage: getTimeFormat() 
+//
+// --------------------------------------------------------
+function getTimeFormat()
+{
+    $db = new SQLite3($_SERVER['DOCUMENT_ROOT'] . '/gamedb/games.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $stmt = $db->prepare('SELECT "dateFormat" FROM "configuration"');
+    $result = $stmt->execute();
+    $var = $result->fetchArray(SQLITE3_ASSOC);
+    return date($var['dateFormat']);
+}
+
+// --------------------------------------------------------
+//
 // Get Language Options - Scans for language files
 // and adds them as <option></option> tag for config pages
 // 
@@ -136,15 +152,15 @@ function getLanguageOptions()
 {
     $langDir     = '../lang/';
     $files       = scandir($langDir);
-    $currentCode = getLanguage();  // now really returns "english"
+    $currentCode = getLanguage();  
     $options     = '';
 
     foreach ($files as $file) {
         if (pathinfo($file, PATHINFO_EXTENSION) !== 'php') {
             continue;
         }
-        $code = basename($file, '.php');      // e.g. "english"
-        include $langDir . $file;             // defines $language & $flag_emoji
+        $code = basename($file, '.php');      
+        include $langDir . $file;             
 
         if (isset($language, $flag_emoji)) {
             $sel = ($code === $currentCode) ? ' selected' : '';
@@ -157,7 +173,6 @@ function getLanguageOptions()
 
     return $options;
 }
-
 
 // --------------------------------------------------------
 //
